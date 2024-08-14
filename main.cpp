@@ -1,7 +1,8 @@
-#include <iostream>
+#include "DungeonGame.hpp"
 
 int main(int argc, char const *argv[])
 {
-    /* code */
+    DungeonGame game;
+    game.run();
     return 0;
 }
