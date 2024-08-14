@@ -1,3 +1,4 @@
+#include <memory>
 #include "DungeonGame.hpp"
 
 DungeonGame::DungeonGame()
@@ -22,7 +23,8 @@ void DungeonGame::gameStart()
             break;
         }
     }
-    //TODO Need to create player and dungeon
+    player_ = std::make_shared<Player>(Player(playerName));
+    //TODO Need to create dungeon
 }
 
 void DungeonGame::getUserNickname(std::string& name)

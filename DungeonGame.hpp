@@ -1,9 +1,12 @@
 #pragma once
 #include <iostream>
-#include <cstdlib>
+#include <memory>
+#include "Player.hpp"
 
 class DungeonGame
 {
+private:
+    std::shared_ptr<Player> player_ = nullptr;
 public:
     DungeonGame();
     ~DungeonGame();
