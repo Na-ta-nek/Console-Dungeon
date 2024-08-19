@@ -10,7 +10,7 @@ private:
 public:
     Player();
     Player(std::string name);
-    virtual ~Player();
+    ~Player();
 
     std::string getName() const;
     int getHealthPoints() const;

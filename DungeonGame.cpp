@@ -1,4 +1,3 @@
-#include <memory>
 #include "DungeonGame.hpp"
 
 DungeonGame::DungeonGame()
@@ -6,6 +5,14 @@ DungeonGame::DungeonGame()
 
 DungeonGame::~DungeonGame()
 {}
+
+void DungeonGame::dungeonInitialization(const int& number)
+{
+    for(int i = 0; i < number; i++)
+    {
+        dungeon_.push_back(std::make_shared<Room>(Room()));
+    }
+}
 
 void DungeonGame::gameStart()
 {
@@ -24,7 +31,10 @@ void DungeonGame::gameStart()
         }
     }
     player_ = std::make_shared<Player>(Player(playerName));
-    //TODO Need to create dungeon
+
+    srand(time(0));
+    dungeonInitialization((rand()%10) + 1);
+    //gamePlay();
 }
 
 void DungeonGame::getUserNickname(std::string& name)

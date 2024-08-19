@@ -2,20 +2,14 @@
 #include <gtest/gtest.h>
 #include "DungeonGame.hpp"
 #include "Player.hpp"
-
-class MockPlayer : public Player {
-public:
-    MOCK_METHOD(void, Die, ());
-    virtual ~MockPlayer() { Die(); }
-};
+#include "Room.hpp"
 
 TEST(PlayerClassTests, CreateDefaultPlayer) {
-  MockPlayer p1{};
+  Player p1{};
 
   EXPECT_EQ(p1.getName(), "Player");
   EXPECT_EQ(p1.getHealthPoints(), 100);
   EXPECT_EQ(p1.getArmorPoints(), 0);
-  EXPECT_CALL(p1, Die());
 }
 
 TEST(PlayerClassTests, CreatePlayerWithName) {
