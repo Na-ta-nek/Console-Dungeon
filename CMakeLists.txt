@@ -5,8 +5,10 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCES
+    Action.cpp
     DungeonGame.cpp
-    Player.cpp)
+    Player.cpp
+    Room.cpp)
 
 find_package(GTest REQUIRED)
 

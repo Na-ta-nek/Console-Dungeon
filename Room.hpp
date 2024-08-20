@@ -4,6 +4,6 @@
 class Room
 {
 public:
-    Room() = default;
-    ~Room() = default;
+    Room();
+    ~Room();
 };
