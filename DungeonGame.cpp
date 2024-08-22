@@ -8,6 +8,7 @@ DungeonGame::~DungeonGame()
 
 void DungeonGame::dungeonInitialization(const int& number)
 {
+    currentRoom_ = 0;
     for(int i = 0; i < number; i++)
     {
         dungeon_.push_back(std::make_shared<Room>(Room()));
@@ -52,7 +53,6 @@ void DungeonGame::gameStart()
     }
     player_ = std::make_shared<Player>(Player(playerName));
 
-    srand(time(0));
     dungeonInitialization((rand()%10) + 1);
     gamePlay();
 }
@@ -78,6 +78,16 @@ void DungeonGame::possibleActionsUpdate()
                                       "Run away",
                                       [this](){ this->runAwayAction(); }));
     index++;
+}
+
+void DungeonGame::printEndGameStats()
+{
+    system("clear");
+    std::cout << "Brave " << player_->getName() << "!" << '\n';
+    std::cout << "You have slayed " << player_->getMobsKilled() << " mobs!" << '\n';
+    std::cout << "You have passed " << player_->getRoomsPassed() << " rooms!" << '\n';
+    std::cout << "You have completed " << player_->getDungeonsCompleted() << " dungeons!" << '\n';
+    std::cout << "Thanks for your game! Bye." << '\n';
 }
 
 void DungeonGame::printInformation() const
@@ -106,19 +116,43 @@ void DungeonGame::run()
 
 void DungeonGame::runAwayAction()
 {
-    //TODO end of dungeon defeat, want to start new dungeon
-    std::cout << "Dead end" << '\n';
+    system("clear");
+    std::cout << "You escaped the dungeon safe and sound!" << '\n';
+    startAgainDialogue();
+}
+
+void DungeonGame::startAgainDialogue()
+{
+    std::cout << "Do you want to enter another dungeon?" << '\n';
+    std::cout << "1. Yes" << '\n';
+    std::cout << "2. No" << '\n';
+    std::cin >> keyPressed_;
+    if(keyPressed_ == 49) // '1'
+    {
+        dungeon_.clear();
+        dungeonInitialization((rand()%10) + 1);
+        gamePlay();
+    }
+    else if(keyPressed_ == 50) // '2'
+    {
+        printEndGameStats();
+    }
+    else
+    {
+        runAwayAction();
+    }
 }
 
 void DungeonGame::switchToNextRoomAction()
 {
-    if(currentRoom_+1 > dungeon_.size())
+    if(currentRoom_+1 > dungeon_.size()-1)
     {
         //TODO end of dungeon victory, want to start new dungeon
         std::cout << "\n";
     }
     else
     {
+        player_->increaseRoomsCounter();
         currentRoom_++;
         gamePlay();
     }

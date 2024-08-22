@@ -6,9 +6,13 @@ Player::Player(std::string name) : name_(name) {}
 
 Player::~Player() = default;
 
-std::string Player::getName() const { return name_; };
-int Player::getHealthPoints() const { return healthPoints_; };
+void Player::increaseRoomsCounter() { roomsPassed++; };
 int Player::getArmorPoints() const { return armorPoints_; };
+unsigned Player::getDungeonsCompleted() const { return dungeonsCompleted; };
+int Player::getHealthPoints() const { return healthPoints_; };
+unsigned Player::getMobsKilled() const { return mobsKilled; };
+std::string Player::getName() const { return name_; };
+unsigned Player::getRoomsPassed() const { return roomsPassed; };
 
 void Player::printInformation() const
 {

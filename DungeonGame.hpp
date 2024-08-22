@@ -26,9 +26,11 @@ public:
     void gameStart();
     void getUserNickname(std::string& name);
     void possibleActionsUpdate();
+    void printEndGameStats();
     void printInformation() const;
     void printPossibleActions() const;
     void run();
     void runAwayAction();
+    void startAgainDialogue();
     void switchToNextRoomAction();
 };
