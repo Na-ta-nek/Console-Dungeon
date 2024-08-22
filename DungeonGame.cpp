@@ -6,11 +6,19 @@ DungeonGame::DungeonGame()
 DungeonGame::~DungeonGame()
 {}
 
+void DungeonGame::dungeonCompletedCase()
+{
+    system("clear");
+    std::cout << "Congrats! You managed to completed this dungeon!" << '\n';
+    startAgainDialogue([this](){ return this->dungeonCompletedCase(); });
+}
+
 void DungeonGame::dungeonInitialization(const int& number)
 {
     currentRoom_ = 0;
     for(int i = 0; i < number; i++)
     {
+        //TODO add mobs and chests
         dungeon_.push_back(std::make_shared<Room>(Room()));
     }
 }
@@ -118,10 +126,10 @@ void DungeonGame::runAwayAction()
 {
     system("clear");
     std::cout << "You escaped the dungeon safe and sound!" << '\n';
-    startAgainDialogue();
+    startAgainDialogue([this](){ return this->runAwayAction(); });
 }
 
-void DungeonGame::startAgainDialogue()
+void DungeonGame::startAgainDialogue(std::function<void()> function)
 {
     std::cout << "Do you want to enter another dungeon?" << '\n';
     std::cout << "1. Yes" << '\n';
@@ -139,7 +147,7 @@ void DungeonGame::startAgainDialogue()
     }
     else
     {
-        runAwayAction();
+        function();
     }
 }
 
@@ -147,8 +155,9 @@ void DungeonGame::switchToNextRoomAction()
 {
     if(currentRoom_+1 > dungeon_.size()-1)
     {
-        //TODO end of dungeon victory, want to start new dungeon
-        std::cout << "\n";
+        player_->increaseRoomsCounter();
+        player_->increaseDungeonsCounter();
+        dungeonCompletedCase();
     }
     else
     {

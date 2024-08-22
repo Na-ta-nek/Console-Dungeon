@@ -10,10 +10,7 @@ Action::Action(unsigned index,
 
 Action::~Action() = default;
 
-std::function<void()> Action::getFunction() const
-{
-    return function_;
-}
+std::function<void()> Action::getFunction() const { return function_; };
 
 void Action::printInformation() const
 {

@@ -21,6 +21,7 @@ public:
     DungeonGame();
     ~DungeonGame();
 
+    void dungeonCompletedCase();
     void dungeonInitialization(const int& number);
     void gamePlay();
     void gameStart();
@@ -31,6 +32,6 @@ public:
     void printPossibleActions() const;
     void run();
     void runAwayAction();
-    void startAgainDialogue();
+    void startAgainDialogue(std::function<void()> function);
     void switchToNextRoomAction();
 };

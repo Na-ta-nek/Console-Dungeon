@@ -6,6 +6,7 @@ Player::Player(std::string name) : name_(name) {}
 
 Player::~Player() = default;
 
+void Player::increaseDungeonsCounter() { dungeonsCompleted++; };
 void Player::increaseRoomsCounter() { roomsPassed++; };
 int Player::getArmorPoints() const { return armorPoints_; };
 unsigned Player::getDungeonsCompleted() const { return dungeonsCompleted; };

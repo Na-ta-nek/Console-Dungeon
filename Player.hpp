@@ -18,6 +18,7 @@ public:
     Player(std::string name);
     ~Player();
 
+    void increaseDungeonsCounter();
     void increaseRoomsCounter();
     int getArmorPoints() const;
     unsigned getDungeonsCompleted() const;
