@@ -6,6 +6,25 @@ DungeonGame::DungeonGame()
 DungeonGame::~DungeonGame()
 {}
 
+void DungeonGame::playerAttackAction(const std::shared_ptr<Monster>& target)
+{
+    int playerAttackDamage = player_->getAttackDamage() + rand()%player_->getAttackDamage();
+    int monsterArmorPoints = target->getArmorPoints();
+    int monsterHealthPoints = target->getHealthPoints();
+    int maxMonsterArmorPoints = target->getMaxArmorPoints();
+    double armorAbsorption = monsterArmorPoints / maxMonsterArmorPoints;
+    int armorDamageDealt = std::round(playerAttackDamage * armorAbsorption);
+    int healthDamageDealt = playerAttackDamage - armorDamageDealt;
+    if(healthDamageDealt > monsterHealthPoints)
+    {
+        player_->increaseMobsCounter();
+    }
+    target->armorPointsDamage(armorDamageDealt);
+    target->healthPointsDamage(healthDamageDealt);
+    dungeon_[currentRoom_]->updateMonstersInRoom();
+    gamePlay();
+}
+
 void DungeonGame::dungeonCompletedCase()
 {
     system("clear");
@@ -18,7 +37,7 @@ void DungeonGame::dungeonInitialization(const int& number)
     currentRoom_ = 0;
     for(int i = 0; i < number; i++)
     {
-        //TODO add mobs and chests
+        //TODO add loot
         dungeon_.push_back(std::make_shared<Room>(Room(i)));
     }
 }
@@ -65,6 +84,14 @@ void DungeonGame::gameStart()
     gamePlay();
 }
 
+std::shared_ptr<Player> DungeonGame::getPlayer() { return player_; };
+
+std::shared_ptr<Monster> DungeonGame::getRandomMonster() const
+{
+    auto monstersInRoom = dungeon_[currentRoom_]->getMonsters();
+    return monstersInRoom[rand()%monstersInRoom.size()];
+}
+
 void DungeonGame::getUserNickname(std::string& name)
 {
     system("clear");
@@ -76,12 +103,24 @@ void DungeonGame::possibleActionsUpdate()
 {
     possibleActions_.clear();
     unsigned index = 1;
-    //TODO monsters, loot, item usage
+    //TODO loot, item usage
+    if(!dungeon_[currentRoom_]->hasRoomMonsters())
+    {
+        possibleActions_.push_back(Action(index,
+                                          "Go to next room",
+                                          [this](){ this->switchToNextRoomAction(); }));
+        index++;
+    }
+    else
+    {
+        possibleActions_.push_back(Action(index,
+                                          "Attack",
+                                          [this](){ this->playerAttackAction(getRandomMonster()); }));
+        index++;
+        //TODO defence
+        //TODO monsters attack
+    }
 
-    possibleActions_.push_back(Action(index,
-                                      "Go to next room",
-                                      [this](){ this->switchToNextRoomAction(); }));
-    index++;
     possibleActions_.push_back(Action(index,
                                       "Run away",
                                       [this](){ this->runAwayAction(); }));

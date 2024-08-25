@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 #include <cstdlib>
 #include <iostream>
 #include <memory>
@@ -22,10 +23,13 @@ public:
     DungeonGame();
     ~DungeonGame();
 
+    void playerAttackAction(const std::shared_ptr<Monster>& target);
     void dungeonCompletedCase();
     void dungeonInitialization(const int& number);
     void gamePlay();
     void gameStart();
+    std::shared_ptr<Player> getPlayer();
+    std::shared_ptr<Monster> getRandomMonster() const;
     void getUserNickname(std::string& name);
     void possibleActionsUpdate();
     void printEndGameStats();

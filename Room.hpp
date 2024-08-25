@@ -17,6 +17,9 @@ public:
     Room(int difficultyLevel);
     ~Room();
 
+    std::vector<std::shared_ptr<Monster>> getMonsters() const;
+    bool hasRoomMonsters() const;
     void monstersInitialization();
     void printInformation() const;
+    void updateMonstersInRoom();
 };

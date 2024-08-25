@@ -9,6 +9,10 @@ Room::Room(int difficultyLevel) : difficultyLevel_(difficultyLevel)
 
 Room::~Room() = default;
 
+std::vector<std::shared_ptr<Monster>> Room::getMonsters() const { return monsters_; };
+
+bool Room::hasRoomMonsters() const { return !monsters_.empty(); };
+
 void Room::monstersInitialization()
 {
     int monstersAmount = std::floor(((double) rand() / (RAND_MAX)) * 
@@ -36,6 +40,18 @@ void Room::printInformation() const
         for(auto monster : monsters_)
         {
             monster->printInformation();
+        }
+    }
+}
+
+void Room::updateMonstersInRoom()
+{
+    for(auto monster : monsters_)
+    {
+        if(monster->getHealthPoints() <= 0)
+        {
+            swap(monster, monsters_[monsters_.size()-1]);
+            monsters_.pop_back();
         }
     }
 }

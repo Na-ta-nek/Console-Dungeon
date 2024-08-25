@@ -20,6 +20,34 @@ Monster::Monster(std::string name) : armorPoints_(0),
 
 Monster::~Monster() = default;
 
+void Monster::armorPointsDamage(const int& damage)
+{
+    if(armorPoints_ - damage < 0)
+    {
+        armorPoints_ = 0;
+    }
+    else
+    {
+        armorPoints_ -= damage;
+    }
+}
+
+void Monster::healthPointsDamage(const int& damage)
+{
+    if(healthPoints_ - damage < 0)
+    {
+        healthPoints_ = 0;
+    }
+    else
+    {
+        healthPoints_ -= damage;
+    }
+}
+
+int Monster::getArmorPoints() const { return armorPoints_; };
+int Monster::getHealthPoints() const { return healthPoints_; };
+int Monster::getMaxArmorPoints() const { return maxArmorPoints_; };
+
 void Monster::printInformation() const
 {
     std::cout << std::setw(20) << std::left << name_;

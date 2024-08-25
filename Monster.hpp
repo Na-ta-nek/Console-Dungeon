@@ -20,5 +20,10 @@ public:
     Monster(std::string name);
     ~Monster();
 
+    void armorPointsDamage(const int& damage);
+    void healthPointsDamage(const int& damage);
+    int getArmorPoints() const;
+    int getHealthPoints() const;
+    int getMaxArmorPoints() const;
     void printInformation() const;
 };
