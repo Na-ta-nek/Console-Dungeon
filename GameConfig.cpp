@@ -1,0 +1,11 @@
+#include "GameConfig.hpp"
+
+namespace DUNGEON_CONFIG
+{
+    const unsigned int MAX_ROOMS_IN_DUNGEON = 10;
+}
+
+namespace ROOM_CONFIG
+{
+    const unsigned int MAX_MONSTERS_IN_ROOM = 3;
+}

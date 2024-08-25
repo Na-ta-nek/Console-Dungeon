@@ -19,7 +19,7 @@ void DungeonGame::dungeonInitialization(const int& number)
     for(int i = 0; i < number; i++)
     {
         //TODO add mobs and chests
-        dungeon_.push_back(std::make_shared<Room>(Room()));
+        dungeon_.push_back(std::make_shared<Room>(Room(i)));
     }
 }
 
@@ -61,7 +61,7 @@ void DungeonGame::gameStart()
     }
     player_ = std::make_shared<Player>(Player(playerName));
 
-    dungeonInitialization((rand()%10) + 1);
+    dungeonInitialization((rand()%DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON) + 1);
     gamePlay();
 }
 

@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Action.hpp"
+#include "GameConfig.hpp"
 #include "Player.hpp"
 #include "Room.hpp"
 
