@@ -23,7 +23,6 @@ public:
     DungeonGame();
     ~DungeonGame();
 
-    void playerAttackAction(const std::shared_ptr<Monster>& target);
     void dungeonCompletedCase();
     void dungeonInitialization(const int& number);
     void gamePlay();
@@ -31,6 +30,8 @@ public:
     std::shared_ptr<Player> getPlayer();
     std::shared_ptr<Monster> getRandomMonster() const;
     void getUserNickname(std::string& name);
+    void monstersAttackAction();
+    void playerAttackAction(const std::shared_ptr<Monster>& target);
     void possibleActionsUpdate();
     void printEndGameStats();
     void printInformation() const;

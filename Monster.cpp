@@ -45,8 +45,10 @@ void Monster::healthPointsDamage(const int& damage)
 }
 
 int Monster::getArmorPoints() const { return armorPoints_; };
+int Monster::getAttackDamage() const { return attackDamage_; };
 int Monster::getHealthPoints() const { return healthPoints_; };
 int Monster::getMaxArmorPoints() const { return maxArmorPoints_; };
+int Monster::getMaxHealthPoints() const { return maxHealthPoints_; };
 
 void Monster::printInformation() const
 {

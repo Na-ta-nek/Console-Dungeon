@@ -19,6 +19,8 @@ public:
     Player(std::string name);
     ~Player();
 
+    void armorPointsDamage(const int& damage);
+    void healthPointsDamage(const int& damage);
     void increaseDungeonsCounter();
     void increaseMobsCounter();
     void increaseRoomsCounter();
@@ -26,6 +28,7 @@ public:
     int getAttackDamage() const;
     unsigned getDungeonsCompleted() const;
     int getHealthPoints() const;
+    int getMaxArmorPoints() const;
     unsigned getMobsKilled() const;
     std::string getName() const;
     unsigned getRoomsPassed() const;

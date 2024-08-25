@@ -22,6 +22,7 @@ void Room::monstersInitialization()
                                      
     for(int i = 0; i < monstersAmount; i++)
     {
+        //TODO more mobs
         monsters_.push_back(
             std::make_shared<Monster>(
                 Monster(
@@ -46,12 +47,11 @@ void Room::printInformation() const
 
 void Room::updateMonstersInRoom()
 {
-    for(auto monster : monsters_)
+    for(int i = 0; i < monsters_.size(); i++)
     {
-        if(monster->getHealthPoints() <= 0)
+        if(monsters_[i]->getHealthPoints() <= 0)
         {
-            swap(monster, monsters_[monsters_.size()-1]);
-            monsters_.pop_back();
+            monsters_.erase(monsters_.begin()+i);
         }
     }
 }
