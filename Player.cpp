@@ -18,6 +18,15 @@ void Player::armorPointsDamage(const int& damage)
     }
 }
 
+int Player::getArmorPoints() const { return armorPoints_; };
+int Player::getAttackDamage() const { return attackDamage_; };
+unsigned Player::getDungeonsCompleted() const { return dungeonsCompleted_; };
+int Player::getHealthPoints() const { return healthPoints_; };
+int Player::getMaxArmorPoints() const { return maxArmorPoints_; };
+unsigned Player::getMobsKilled() const { return mobsKilled_; };
+std::string Player::getName() const { return name_; };
+unsigned Player::getRoomsPassed() const { return roomsPassed_; };
+
 void Player::healthPointsDamage(const int& damage)
 {
     if(healthPoints_ - damage < 0)
@@ -33,14 +42,6 @@ void Player::healthPointsDamage(const int& damage)
 void Player::increaseDungeonsCounter() { dungeonsCompleted_++; };
 void Player::increaseMobsCounter() { mobsKilled_++; };
 void Player::increaseRoomsCounter() { roomsPassed_++; };
-int Player::getArmorPoints() const { return armorPoints_; };
-int Player::getAttackDamage() const { return attackDamage_; };
-unsigned Player::getDungeonsCompleted() const { return dungeonsCompleted_; };
-int Player::getHealthPoints() const { return healthPoints_; };
-int Player::getMaxArmorPoints() const { return maxArmorPoints_; };
-unsigned Player::getMobsKilled() const { return mobsKilled_; };
-std::string Player::getName() const { return name_; };
-unsigned Player::getRoomsPassed() const { return roomsPassed_; };
 
 void Player::printInformation() const
 {

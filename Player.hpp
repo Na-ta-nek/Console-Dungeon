@@ -20,10 +20,6 @@ public:
     ~Player();
 
     void armorPointsDamage(const int& damage);
-    void healthPointsDamage(const int& damage);
-    void increaseDungeonsCounter();
-    void increaseMobsCounter();
-    void increaseRoomsCounter();
     int getArmorPoints() const;
     int getAttackDamage() const;
     unsigned getDungeonsCompleted() const;
@@ -32,5 +28,9 @@ public:
     unsigned getMobsKilled() const;
     std::string getName() const;
     unsigned getRoomsPassed() const;
+    void healthPointsDamage(const int& damage);
+    void increaseDungeonsCounter();
+    void increaseMobsCounter();
+    void increaseRoomsCounter();
     void printInformation() const;
 };

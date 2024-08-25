@@ -13,11 +13,11 @@
 class DungeonGame
 {
 private:
+    unsigned currentRoom_ = 0;
     std::vector<std::shared_ptr<Room>> dungeon_{};
+    char keyPressed_ = ' ';
     std::shared_ptr<Player> player_ = nullptr;
     std::vector<Action> possibleActions_{};
-    unsigned currentRoom_ = 0;
-    char keyPressed_ = ' ';
 
 public:
     DungeonGame();

@@ -5,9 +5,9 @@
 class Action
 {
 private:
+    std::function<void()> function_{};
     unsigned index_ = 1;
     std::string message_ = "Action";
-    std::function<void()> function_{};
 public:
     Action();
     Action(unsigned index, std::string message, std::function<void()> function);
