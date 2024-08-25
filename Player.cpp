@@ -17,6 +17,7 @@ unsigned Player::getRoomsPassed() const { return roomsPassed; };
 
 void Player::printInformation() const
 {
+    std::cout << "------------------------------------------------------------" << '\n';
     std::cout << std::setw(20) << std::left << name_;
     std::cout << std::setw(17) << std::right << "Health: " << healthPoints_ << "/" << maxHealthPoints_;
     std::cout << std::setw(1) << " ";

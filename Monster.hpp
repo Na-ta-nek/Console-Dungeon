@@ -1,4 +1,5 @@
 #pragma once
+#include <iomanip>
 #include <iostream>
 
 class Monster
@@ -18,4 +19,6 @@ public:
             std::string name);
     Monster(std::string name);
     ~Monster();
+
+    void printInformation() const;
 };

@@ -18,4 +18,5 @@ public:
     ~Room();
 
     void monstersInitialization();
+    void printInformation() const;
 };

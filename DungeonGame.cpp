@@ -101,7 +101,7 @@ void DungeonGame::printEndGameStats()
 void DungeonGame::printInformation() const
 {
     std::cout << std::setw(34) << std::right << "Room nr " << currentRoom_+1 << '\n';
-    std::cout << "------------------------------------------------------------" << '\n';
+    dungeon_[currentRoom_]->printInformation();
     player_->printInformation();
     std::cout << "------------------------------------------------------------" << '\n';
 }

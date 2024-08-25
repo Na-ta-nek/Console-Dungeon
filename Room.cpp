@@ -11,7 +11,7 @@ Room::~Room() = default;
 
 void Room::monstersInitialization()
 {
-    int monstersAmount = std::floor((rand() / (RAND_MAX)) * 
+    int monstersAmount = std::floor(((double) rand() / (RAND_MAX)) * 
                                      ROOM_CONFIG::MAX_MONSTERS_IN_ROOM + 
                                      (difficultyLevel_ / 
                                      DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON));
@@ -23,5 +23,19 @@ void Room::monstersInitialization()
                 Monster(
                     "Zombie"
                 )));
+    }
+}
+
+void Room::printInformation() const
+{
+    if(!monsters_.empty())
+    {
+        
+        std::cout << "------------------------------------------------------------" << '\n';
+        std::cout << std::setw(34) << std::right << "Enemies:" << '\n';
+        for(auto monster : monsters_)
+        {
+            monster->printInformation();
+        }
     }
 }

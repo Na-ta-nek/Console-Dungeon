@@ -19,3 +19,11 @@ Monster::Monster(std::string name) : armorPoints_(0),
                                      name_(name) {};
 
 Monster::~Monster() = default;
+
+void Monster::printInformation() const
+{
+    std::cout << std::setw(20) << std::left << name_;
+    std::cout << std::setw(17) << std::right << "Health: " << healthPoints_ << "/" << maxHealthPoints_;
+    std::cout << std::setw(1) << " ";
+    std::cout << "Armor: " << armorPoints_ << "/" << maxArmorPoints_ << '\n';
+}
