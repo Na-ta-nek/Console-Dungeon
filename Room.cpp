@@ -9,7 +9,12 @@ Room::Room(int difficultyLevel) : difficultyLevel_(difficultyLevel)
 
 Room::~Room() = default;
 
-std::vector<std::shared_ptr<Monster>> Room::getMonsters() const { return monsters_; };
+std::shared_ptr<Monster> Room::getMonster(const int& index) const
+{
+    return monsters_[index];
+}
+
+int Room::getNumberOfMonsters() const { return monsters_.size(); };
 
 bool Room::hasRoomMonsters() const { return !monsters_.empty(); };
 

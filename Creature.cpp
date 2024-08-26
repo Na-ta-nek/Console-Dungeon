@@ -26,6 +26,19 @@ void Creature::armorPointsDamage(const int& damage)
     }
 }
 
+void Creature::attack(const std::shared_ptr<Creature>& target)
+{
+    int AttackDamage = getAttackDamage() + rand()%getAttackDamage();
+    int targetArmorPoints = target->getArmorPoints();
+    int targetHealthPoints = target->getHealthPoints();
+    int maxTargetArmorPoints = target->getMaxArmorPoints();
+    double armorAbsorption = targetArmorPoints / maxTargetArmorPoints;
+    int armorDamageDealt = std::round(AttackDamage * armorAbsorption);
+    int healthDamageDealt = AttackDamage - armorDamageDealt;
+    target->armorPointsDamage(armorDamageDealt);
+    target->healthPointsDamage(healthDamageDealt);
+}
+
 void Creature::healthPointsDamage(const int& damage)
 {
     if(healthPoints_ - damage < 0)

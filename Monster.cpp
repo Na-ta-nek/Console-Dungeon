@@ -8,6 +8,7 @@ Monster::Monster(std::string name) : Creature(0,
                                               name) {};
 
 Monster::Monster(int armorPoints,
+                 int attackChance,
                  int attackDamage,
                  int healthPoints,
                  int maxArmorPoints,
@@ -17,4 +18,7 @@ Monster::Monster(int armorPoints,
                                               healthPoints,
                                               maxArmorPoints,
                                               maxHealthPoints,
-                                              name) {};
+                                              name),
+                                     attackChance_(attackChance) {};
+
+double Monster::getAttackChance() const { return attackChance_; };

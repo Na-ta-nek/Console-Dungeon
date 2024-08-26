@@ -67,12 +67,6 @@ void DungeonGame::gameStart()
 
 std::shared_ptr<Player> DungeonGame::getPlayer() { return player_; };
 
-std::shared_ptr<Monster> DungeonGame::getRandomMonster() const
-{
-    auto monstersInRoom = dungeon_[currentRoom_]->getMonsters();
-    return monstersInRoom[rand()%monstersInRoom.size()];
-}
-
 void DungeonGame::getUserNickname(std::string& name)
 {
     system("clear");
@@ -82,51 +76,55 @@ void DungeonGame::getUserNickname(std::string& name)
 
 void DungeonGame::monstersAttackAction()
 {
-    auto monsters = dungeon_[currentRoom_]->getMonsters();
-    for(auto monster : monsters)
+    int monstersInRoom = dungeon_[currentRoom_]->getNumberOfMonsters();
+    for(int i = 0; i < monstersInRoom; i++)
     {
-        double attackChance = monster->getHealthPoints() / monster->getMaxHealthPoints();
-        if(((double) rand() / (RAND_MAX)) < attackChance)
+        auto monster = dungeon_[currentRoom_]->getMonster(i);
+
+        if(((double) rand() / (RAND_MAX)) < monster->getAttackChance())
         {
-            int monsterAttackDamage = monster->getAttackDamage() + rand()%monster->getAttackDamage();
-            int playerArmorPoints = player_->getArmorPoints();
-            int playerHealthPoints = player_->getHealthPoints();
-            int maxPlayerArmorPoints = player_->getMaxArmorPoints();
-            double armorAbsorption = playerArmorPoints / maxPlayerArmorPoints;
-            int armorDamageDealt = std::round(monsterAttackDamage * armorAbsorption);
-            int healthDamageDealt = monsterAttackDamage - armorDamageDealt;
-            player_->armorPointsDamage(armorDamageDealt);
-            player_->healthPointsDamage(healthDamageDealt);
-            if(healthDamageDealt > playerHealthPoints)
-            {
-                system("clear");
-                printInformation();
-                std::cout << "You have died!" << '\n';
-                system("read -p 'Press Enter to continue...' var");
-                printEndGameStats();
-                player_.reset();
-            }
+            monster->attack(player_);
+        }
+        if(player_->getHealthPoints() <= 0)
+        {
+            system("clear");
+            printInformation();
+            std::cout << "You have died!" << '\n';
+            system("read -p 'Press Enter to continue...' var");
+            printEndGameStats();
+            player_.reset();
+            break;
         }
     }
 }
 
-void DungeonGame::playerAttackAction(const std::shared_ptr<Monster>& target)
+void DungeonGame::playerAttackAction()
 {
-    int playerAttackDamage = player_->getAttackDamage() + rand()%player_->getAttackDamage();
-    int monsterArmorPoints = target->getArmorPoints();
-    int monsterHealthPoints = target->getHealthPoints();
-    int maxMonsterArmorPoints = target->getMaxArmorPoints();
-    double armorAbsorption = monsterArmorPoints / maxMonsterArmorPoints;
-    int armorDamageDealt = std::round(playerAttackDamage * armorAbsorption);
-    int healthDamageDealt = playerAttackDamage - armorDamageDealt;
-    if(healthDamageDealt > monsterHealthPoints)
+    if(dungeon_[currentRoom_]->getNumberOfMonsters() > 1)
     {
-        player_->increaseMobsCounter();
+        system("clear");
+        printInformation();
+        std::cout << "Choose enemy to attack by entering index of the enemy" << '\n';
+        std::cin >> keyPressed_;
     }
-    target->armorPointsDamage(armorDamageDealt);
-    target->healthPointsDamage(healthDamageDealt);
-    dungeon_[currentRoom_]->updateMonstersInRoom();
-    monstersAttackAction();
+    else
+    {
+        keyPressed_ = 49;
+    }
+    int index = (int) keyPressed_ - 48;
+    std::cout << index << '\n';
+    if(index > 0 && 
+       index <= dungeon_[currentRoom_]->getNumberOfMonsters())
+    {
+        auto target = dungeon_[currentRoom_]->getMonster(index-1);
+        player_->attack(target);
+        if(target->getHealthPoints() <= 0)
+        {
+            player_->increaseMobsCounter();
+        }
+        dungeon_[currentRoom_]->updateMonstersInRoom();
+        monstersAttackAction();
+    }
     if(player_)
     {
         gamePlay();
@@ -149,7 +147,7 @@ void DungeonGame::possibleActionsUpdate()
     {
         possibleActions_.push_back(Action(index,
                                           "Attack",
-                                          [this](){ this->playerAttackAction(getRandomMonster()); }));
+                                          [this](){ this->playerAttackAction(); }));
         index++;
         //TODO defence
     }

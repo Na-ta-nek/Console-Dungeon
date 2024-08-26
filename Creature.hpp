@@ -1,6 +1,8 @@
 #pragma once
+#include <cmath>
 #include <iomanip>
 #include <iostream>
+#include <memory>
 
 class Creature
 {
@@ -27,6 +29,7 @@ public:
     virtual ~Creature() = default;
 
     void armorPointsDamage(const int& damage);
+    void attack(const std::shared_ptr<Creature>& target);
     void healthPointsDamage(const int& damage);
     int getArmorPoints() const;
     int getAttackDamage() const;
