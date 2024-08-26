@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCES
     Action.cpp
+    Creature.cpp
     DungeonGame.cpp
     GameConfig.cpp
     Monster.cpp
