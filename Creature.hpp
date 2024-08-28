@@ -10,6 +10,7 @@ private:
     int armorPoints_ = 0;
     int attackDamage_ = 0;
     int healthPoints_ = 100;
+    bool isDefending_ = true;
     int maxArmorPoints_ = 100;
     int maxHealthPoints_ = 100;
     std::string name_ = "Creature";
@@ -30,12 +31,15 @@ public:
 
     void armorPointsDamage(const int& damage);
     void attack(const std::shared_ptr<Creature>& target);
+    void defend();
     void healthPointsDamage(const int& damage);
     int getArmorPoints() const;
     int getAttackDamage() const;
     int getHealthPoints() const;
+    bool getIsDefending() const;
     int getMaxArmorPoints() const;
     int getMaxHealthPoints() const;
     std::string getName() const;
     void printInformation() const;
+    void resetHealthPoints();
 };

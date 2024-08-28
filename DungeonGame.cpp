@@ -85,6 +85,10 @@ void DungeonGame::monstersAttackAction()
         {
             monster->attack(player_);
         }
+        else
+        {
+            monster->defend();
+        }
         if(player_->getHealthPoints() <= 0)
         {
             system("clear");
@@ -131,6 +135,16 @@ void DungeonGame::playerAttackAction()
     }
 }
 
+void DungeonGame::playerDefendAction()
+{
+    player_->defend();
+    monstersAttackAction();
+    if(player_)
+    {
+        gamePlay();
+    }
+}
+
 void DungeonGame::possibleActionsUpdate()
 {
     possibleActions_.clear();
@@ -149,7 +163,10 @@ void DungeonGame::possibleActionsUpdate()
                                           "Attack",
                                           [this](){ this->playerAttackAction(); }));
         index++;
-        //TODO defence
+        possibleActions_.push_back(Action(index,
+                                          "Defend",
+                                          [this](){ this->playerDefendAction(); }));
+        index++;
     }
 
     possibleActions_.push_back(Action(index,
@@ -227,6 +244,7 @@ void DungeonGame::switchToNextRoomAction()
     {
         player_->increaseRoomsCounter();
         player_->increaseDungeonsCounter();
+        player_->resetHealthPoints();
         dungeonCompletedCase();
     }
     else

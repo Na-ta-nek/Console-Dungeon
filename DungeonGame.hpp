@@ -31,6 +31,7 @@ public:
     void getUserNickname(std::string& name);
     void monstersAttackAction();
     void playerAttackAction();
+    void playerDefendAction();
     void possibleActionsUpdate();
     void printEndGameStats();
     void printInformation() const;
