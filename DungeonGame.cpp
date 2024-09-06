@@ -32,6 +32,7 @@ void DungeonGame::gamePlay()
     printPossibleActions();
 
     std::cin >> keyPressed_;
+    std::cin.ignore();
     if(keyPressed_ > 48 && keyPressed_ <= 48+possibleActions_.size())
     {
         std::function<void()> functionToCall = possibleActions_[keyPressed_-49].getFunction();
@@ -110,6 +111,7 @@ void DungeonGame::playerAttackAction()
         printInformation();
         std::cout << "Choose enemy to attack by entering index of the enemy" << '\n';
         std::cin >> keyPressed_;
+        std::cin.ignore();
     }
     else
     {
@@ -229,6 +231,7 @@ void DungeonGame::startAgainDialogue(std::function<void()> function)
     std::cout << "1. Yes" << '\n';
     std::cout << "2. No" << '\n';
     std::cin >> keyPressed_;
+    std::cin.ignore();
     if(keyPressed_ == 49) // '1'
     {
         dungeon_.clear();
@@ -270,6 +273,7 @@ void DungeonGame::useItemAction()
         printInformation();
         std::cout << "Choose item to use by entering index of the item" << '\n';
         std::cin >> keyPressed_;
+        std::cin.ignore();
     }
     else
     {
