@@ -5,18 +5,46 @@ Room::Room() = default;
 Room::Room(int difficultyLevel) : difficultyLevel_(difficultyLevel)
 {
     monstersInitialization();
+    lootInitialization();
 }
 
 Room::~Room() = default;
+
+std::shared_ptr<Item> Room::getItem(const int& index) const
+{
+    return lootChest_[index];
+}
 
 std::shared_ptr<Monster> Room::getMonster(const int& index) const
 {
     return monsters_[index];
 }
 
+int Room::getNumberOfItems() const {return lootChest_.size(); };
+
 int Room::getNumberOfMonsters() const { return monsters_.size(); };
 
+bool Room::hasRoomItems() const { return !lootChest_.empty(); };
+
 bool Room::hasRoomMonsters() const { return !monsters_.empty(); };
+
+void Room::lootInitialization()
+{
+    int itemsAmount = std::floor(((double) rand() / (RAND_MAX)) * 
+                                     ROOM_CONFIG::MAX_ITEMS_IN_ROOM + 
+                                     (difficultyLevel_ / 
+                                     DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON));
+    for(int i = 0; i < itemsAmount; i++)
+    {
+        //TODO more items
+        lootChest_.push_back(
+            std::make_shared<Item>(
+                Item(
+                    "Pills",
+                    30
+                )));
+    }
+}
 
 void Room::monstersInitialization()
 {
@@ -47,6 +75,31 @@ void Room::printInformation() const
         {
             monster->printInformation();
         }
+        if(!lootChest_.empty())
+        {
+            std::cout << "------------------------------------------------------------" << '\n';
+            std::cout << std::setw(34) << std::right << "Chest contains " << lootChest_.size() << " items!" << '\n';
+        }
+    }
+    else
+    {
+        if(!lootChest_.empty())
+        {
+            std::cout << "------------------------------------------------------------" << '\n';
+            std::cout << std::setw(34) << std::right << "Loot:" << '\n';
+            for(auto item : lootChest_)
+            {
+                item->printInformation();
+            }
+        }
+    }
+}
+
+void Room::updateItemsInRoom(const int& index)
+{
+    if(lootChest_[index])
+    {
+        lootChest_.erase(lootChest_.begin()+index);
     }
 }
 

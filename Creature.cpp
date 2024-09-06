@@ -66,6 +66,18 @@ int Creature::getMaxArmorPoints() const { return maxArmorPoints_; };
 int Creature::getMaxHealthPoints() const { return maxHealthPoints_; };
 std::string Creature::getName() const { return name_; };
 
+void Creature::increaseHealthPoints(const int& amount)
+{
+    if(healthPoints_ + amount > maxHealthPoints_)
+    {
+        healthPoints_ = maxHealthPoints_;
+    }
+    else
+    {
+        healthPoints_ += amount;
+    }
+}
+
 void Creature::printInformation() const
 {
     std::cout << std::setw(20) << std::left << name_;

@@ -8,4 +8,5 @@ namespace DUNGEON_CONFIG
 namespace ROOM_CONFIG
 {
     const unsigned int MAX_MONSTERS_IN_ROOM = 3;
+    const unsigned int MAX_ITEMS_IN_ROOM = 3;
 }

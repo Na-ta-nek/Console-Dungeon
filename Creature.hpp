@@ -40,6 +40,7 @@ public:
     int getMaxArmorPoints() const;
     int getMaxHealthPoints() const;
     std::string getName() const;
+    void increaseHealthPoints(const int& amount);
     void printInformation() const;
     void resetHealthPoints();
 };

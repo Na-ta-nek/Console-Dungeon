@@ -116,7 +116,6 @@ void DungeonGame::playerAttackAction()
         keyPressed_ = 49;
     }
     int index = (int) keyPressed_ - 48;
-    std::cout << index << '\n';
     if(index > 0 && 
        index <= dungeon_[currentRoom_]->getNumberOfMonsters())
     {
@@ -149,9 +148,17 @@ void DungeonGame::possibleActionsUpdate()
 {
     possibleActions_.clear();
     unsigned index = 1;
-    //TODO loot, item usage
+    //TODO item usage
     if(!dungeon_[currentRoom_]->hasRoomMonsters())
     {
+        if(dungeon_[currentRoom_]->hasRoomItems())
+        {
+            possibleActions_.push_back(Action(index,
+                                          "Use item",
+                                          [this](){ this->useItemAction(); }));
+            index++;
+            //TODO adding item to backpack
+        }
         possibleActions_.push_back(Action(index,
                                           "Go to next room",
                                           [this](){ this->switchToNextRoomAction(); }));
@@ -226,6 +233,7 @@ void DungeonGame::startAgainDialogue(std::function<void()> function)
     {
         dungeon_.clear();
         dungeonInitialization((rand()%10) + 1);
+        player_->resetHealthPoints();
         gamePlay();
     }
     else if(keyPressed_ == 50) // '2'
@@ -244,7 +252,6 @@ void DungeonGame::switchToNextRoomAction()
     {
         player_->increaseRoomsCounter();
         player_->increaseDungeonsCounter();
-        player_->resetHealthPoints();
         dungeonCompletedCase();
     }
     else
@@ -253,4 +260,28 @@ void DungeonGame::switchToNextRoomAction()
         currentRoom_++;
         gamePlay();
     }
+}
+
+void DungeonGame::useItemAction()
+{
+    if(dungeon_[currentRoom_]->getNumberOfItems() > 1)
+    {
+        system("clear");
+        printInformation();
+        std::cout << "Choose item to use by entering index of the item" << '\n';
+        std::cin >> keyPressed_;
+    }
+    else
+    {
+        keyPressed_ = 49;
+    }
+    int index = (int) keyPressed_ - 48;
+    if(index > 0 && 
+       index <= dungeon_[currentRoom_]->getNumberOfItems())
+    {
+        auto item = dungeon_[currentRoom_]->getItem(index-1);
+        player_->useItem(item);
+        dungeon_[currentRoom_]->updateItemsInRoom(index-1);
+    }
+    gamePlay();
 }

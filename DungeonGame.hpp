@@ -40,4 +40,5 @@ public:
     void runAwayAction();
     void startAgainDialogue(std::function<void()> function);
     void switchToNextRoomAction();
+    void useItemAction();
 };

@@ -9,6 +9,7 @@ set(SOURCES
     Creature.cpp
     DungeonGame.cpp
     GameConfig.cpp
+    Item.cpp
     Monster.cpp
     Player.cpp
     Room.cpp)

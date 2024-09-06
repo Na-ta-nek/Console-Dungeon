@@ -1,8 +1,10 @@
 #pragma once
 #include <iomanip>
 #include <iostream>
+#include <memory>
 
 #include "Creature.hpp"
+#include "Item.hpp"
 
 class Player : public Creature
 {
@@ -21,4 +23,5 @@ public:
     void increaseMobsCounter();
     void increaseRoomsCounter();
     void printInformation() const;
+    void useItem(const std::shared_ptr<Item>& item);
 };

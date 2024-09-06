@@ -6,4 +6,5 @@ namespace DUNGEON_CONFIG {
 
 namespace ROOM_CONFIG {
     extern const unsigned int MAX_MONSTERS_IN_ROOM;
+    extern const unsigned int MAX_ITEMS_IN_ROOM;
 }

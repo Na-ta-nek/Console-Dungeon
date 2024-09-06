@@ -21,3 +21,8 @@ void Player::printInformation() const
     std::cout << std::setw(34) << std::right << "Player:" << '\n';
     Creature::printInformation();
 }
+
+void Player::useItem(const std::shared_ptr<Item>& item)
+{
+    item->use(*this);
+}
