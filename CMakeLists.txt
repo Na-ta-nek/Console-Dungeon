@@ -12,7 +12,8 @@ set(SOURCES
     Item.cpp
     Monster.cpp
     Player.cpp
-    Room.cpp)
+    Room.cpp
+    Zombie.cpp)
 
 find_package(GTest REQUIRED)
 

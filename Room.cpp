@@ -15,9 +15,9 @@ std::shared_ptr<Item> Room::getItem(const int& index) const
     return lootChest_[index];
 }
 
-std::shared_ptr<Monster> Room::getMonster(const int& index) const
+std::vector<std::shared_ptr<Monster>> Room::getMonsters() const
 {
-    return monsters_[index];
+    return monsters_;
 }
 
 int Room::getNumberOfItems() const {return lootChest_.size(); };
@@ -57,10 +57,7 @@ void Room::monstersInitialization()
     {
         //TODO more mobs
         monsters_.push_back(
-            std::make_shared<Monster>(
-                Monster(
-                    "Zombie"
-                )));
+            std::make_shared<Zombie>());
     }
 }
 

@@ -7,6 +7,7 @@
 #include "GameConfig.hpp"
 #include "Item.hpp"
 #include "Monster.hpp"
+#include "Zombie.hpp"
 
 class Room
 {
@@ -20,7 +21,7 @@ public:
     ~Room();
 
     std::shared_ptr<Item> getItem(const int& index) const;
-    std::shared_ptr<Monster> getMonster(const int& index) const;
+    std::vector<std::shared_ptr<Monster>> getMonsters() const;
     int getNumberOfItems() const;
     int getNumberOfMonsters() const;
     bool hasRoomItems() const;

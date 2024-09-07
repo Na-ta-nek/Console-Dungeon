@@ -79,16 +79,8 @@ void DungeonGame::monstersAttackAction()
     int monstersInRoom = dungeon_[currentRoom_]->getNumberOfMonsters();
     for(int i = 0; i < monstersInRoom; i++)
     {
-        auto monster = dungeon_[currentRoom_]->getMonster(i);
-
-        if(((double) rand() / (RAND_MAX)) < monster->getAttackChance())
-        {
-            monster->attack(player_);
-        }
-        else
-        {
-            monster->defend();
-        }
+        auto monsters = dungeon_[currentRoom_]->getMonsters();
+        monsters[i]->monsterTurn(player_, monsters);
         if(player_->getHealthPoints() <= 0)
         {
             system("clear");
@@ -136,7 +128,7 @@ void DungeonGame::playerAttackAction()
     if(index > 0 && 
        index <= dungeon_[currentRoom_]->getNumberOfMonsters())
     {
-        auto target = dungeon_[currentRoom_]->getMonster(index-1);
+        auto target = dungeon_[currentRoom_]->getMonsters()[index-1];
         player_->attack(target);
         if(target->getHealthPoints() <= 0)
         {
@@ -201,7 +193,6 @@ void DungeonGame::possibleActionsUpdate()
                                           [this](){ this->openBackpackAction(); }));
         index++;
     }
-
     possibleActions_.push_back(Action(index,
                                       "Run away",
                                       [this](){ this->runAwayAction(); }));
