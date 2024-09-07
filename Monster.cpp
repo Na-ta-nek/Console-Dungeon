@@ -1,6 +1,6 @@
 #include "Monster.hpp"
 
-Monster::Monster(std::string name) : Creature(100,
+Monster::Monster(std::string name) : Creature(0,
                                               15,
                                               100,
                                               100,

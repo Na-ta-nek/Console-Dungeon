@@ -30,6 +30,7 @@ public:
     std::shared_ptr<Player> getPlayer();
     void getUserNickname(std::string& name);
     void monstersAttackAction();
+    void openBackpackAction();
     void playerAttackAction();
     void playerDefendAction();
     void possibleActionsUpdate();

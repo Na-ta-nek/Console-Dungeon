@@ -9,11 +9,12 @@ Player::Player(std::string name) : Creature(0,
 
 unsigned Player::getDungeonsCompleted() const { return dungeonsCompleted_; };
 unsigned Player::getMobsKilled() const { return mobsKilled_; };
+int Player::getNumberOfItemsInBackpack() const { return backpack_.size(); };
 unsigned Player::getRoomsPassed() const { return roomsPassed_; };
-
 void Player::increaseDungeonsCounter() { dungeonsCompleted_++; };
 void Player::increaseMobsCounter() { mobsKilled_++; };
 void Player::increaseRoomsCounter() { roomsPassed_++; };
+bool Player::isBackpackEmpty() const { return backpack_.empty(); };
 
 bool Player::isBackpackFull() const
 {
@@ -38,6 +39,12 @@ void Player::printInformation() const
 void Player::putItemInBackpack(const std::shared_ptr<Item>& item)
 {
     backpack_.push_back(item);
+}
+
+void Player::useItem(const int& index)
+{
+    backpack_[index]->use(*this);
+    backpack_.erase(backpack_.begin()+index);
 }
 
 void Player::useItem(const std::shared_ptr<Item>& item)

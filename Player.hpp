@@ -21,12 +21,15 @@ public:
 
     unsigned getDungeonsCompleted() const;
     unsigned getMobsKilled() const;
+    int getNumberOfItemsInBackpack() const;
     unsigned getRoomsPassed() const;
     void increaseDungeonsCounter();
     void increaseMobsCounter();
     void increaseRoomsCounter();
+    bool isBackpackEmpty() const;
     bool isBackpackFull() const;
     void printInformation() const;
     void putItemInBackpack(const std::shared_ptr<Item>& item);
+    void useItem(const int& index);
     void useItem(const std::shared_ptr<Item>& item);
 };
