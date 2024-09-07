@@ -1,10 +1,10 @@
 #include "Player.hpp"
 
-Player::Player(std::string name) : Creature(0,
-                                            30,
-                                            100,
-                                            100,
-                                            100,
+Player::Player(std::string name) : Creature(0, //armorPoints
+                                            30, //AttackDamage
+                                            100, //healthPoints
+                                            100, //maxArmorPoints
+                                            100, //maxHealthPoints
                                             name) {};
 
 unsigned Player::getDungeonsCompleted() const { return dungeonsCompleted_; };

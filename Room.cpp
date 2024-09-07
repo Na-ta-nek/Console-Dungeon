@@ -48,16 +48,17 @@ void Room::lootInitialization()
 
 void Room::monstersInitialization()
 {
-    int monstersAmount = std::floor(((double) rand() / (RAND_MAX)) * 
-                                     ROOM_CONFIG::MAX_MONSTERS_IN_ROOM + 
-                                     (difficultyLevel_ / 
-                                     DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON));
-                                     
+    int monstersAmount = std::round(((((double) rand() / (RAND_MAX)) + 
+                                      ((difficultyLevel_ + 1) / DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON)) /
+                                      2) * (ROOM_CONFIG::MAX_MONSTERS_IN_ROOM));
+    int monsterIndex = 0;
+    double randomFactor = 0.0;
     for(int i = 0; i < monstersAmount; i++)
     {
-        //TODO more mobs
-        monsters_.push_back(
-            std::make_shared<Zombie>());
+        monsterIndex = std::floor(((((double) rand() / (RAND_MAX)) + 
+                                      ((difficultyLevel_ + 1) / DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON)) /
+                                      2) * (ROOM_CONFIG::POSSIBLE_MONSTERS_CLASSES));
+        monsters_.push_back(spawnMobByIndex(monsterIndex));
     }
 }
 
@@ -89,6 +90,32 @@ void Room::printInformation() const
                 item->printInformation();
             }
         }
+    }
+}
+
+std::shared_ptr<Monster> Room::spawnMobByIndex(const int& index)
+{
+    switch (index) {
+        case 0:
+            return std::make_shared<Skeleton>();
+        case 1:
+            return std::make_shared<Zombie>();
+        case 2:
+            return std::make_shared<Orc>();
+        case 3:
+            return std::make_shared<Shaman>();
+        case 4:
+            return std::make_shared<Vampire>();
+        case 5:
+            return std::make_shared<DeathKnight>();
+        case 6:
+            return std::make_shared<Wizard>();
+        case 7:
+            return std::make_shared<Golem>();
+        case 8:
+            return std::make_shared<Dragon>();
+        default:
+            return nullptr;
     }
 }
 

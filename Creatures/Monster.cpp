@@ -27,7 +27,7 @@ void Monster::monsterTurn(const std::shared_ptr<Player>& player,
 {
     if(((double) rand() / (RAND_MAX)) < getAttackChance())
     {
-        attack(player);
+        attack(player, getAttackDamage());
     }
     else
     {

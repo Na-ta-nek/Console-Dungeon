@@ -4,9 +4,17 @@
 #include <memory>
 #include <vector>
 
+#include "DeathKnight.hpp"
+#include "Dragon.hpp"
+#include "Golem.hpp"
 #include "GameConfig.hpp"
 #include "Item.hpp"
 #include "Monster.hpp"
+#include "Orc.hpp"
+#include "Shaman.hpp"
+#include "Skeleton.hpp"
+#include "Vampire.hpp"
+#include "Wizard.hpp"
 #include "Zombie.hpp"
 
 class Room
@@ -29,6 +37,7 @@ public:
     void lootInitialization();
     void monstersInitialization();
     void printInformation() const;
+    std::shared_ptr<Monster> spawnMobByIndex(const int& index);
     void updateItemsInRoom(const int& index);
     void updateMonstersInRoom();
 };

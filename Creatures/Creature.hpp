@@ -30,7 +30,8 @@ public:
     virtual ~Creature() = default;
 
     void armorPointsDamage(const int& damage);
-    void attack(const std::shared_ptr<Creature>& target);
+    void attack(const std::shared_ptr<Creature>& target,
+                const int& damage);
     void defend();
     void healthPointsDamage(const int& damage);
     int getArmorPoints() const;
@@ -40,6 +41,7 @@ public:
     int getMaxArmorPoints() const;
     int getMaxHealthPoints() const;
     std::string getName() const;
+    void increaseArmorPoints(const int& amount);
     void increaseHealthPoints(const int& amount);
     void printInformation() const;
     void resetHealthPoints();

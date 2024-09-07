@@ -5,8 +5,8 @@
 #include <vector>
 
 #include "Creature.hpp"
-#include "GameConfig.hpp"
-#include "Item.hpp"
+#include "../GameConfig.hpp"
+#include "../Item.hpp"
 
 class Player : public Creature
 {

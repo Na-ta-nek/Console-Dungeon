@@ -9,6 +9,7 @@ namespace ROOM_CONFIG
 {
     extern const unsigned int MAX_MONSTERS_IN_ROOM;
     extern const unsigned int MAX_ITEMS_IN_ROOM;
+    extern const unsigned int POSSIBLE_MONSTERS_CLASSES;
 }
 
 namespace PLAYER_CONFIG

@@ -16,7 +16,7 @@ void DungeonGame::dungeonCompletedCase()
 void DungeonGame::dungeonInitialization(const int& number)
 {
     currentRoom_ = 0;
-    for(int i = 0; i < number; i++)
+    for(int i = 0; i <= number; i++)
     {
         dungeon_.push_back(std::make_shared<Room>(Room(i)));
     }
@@ -61,7 +61,7 @@ void DungeonGame::gameStart()
     }
     player_ = std::make_shared<Player>(Player(playerName));
 
-    dungeonInitialization((rand()%DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON) + 1);
+    dungeonInitialization(rand()%DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON);
     gamePlay();
 }
 
@@ -77,19 +77,23 @@ void DungeonGame::getUserNickname(std::string& name)
 void DungeonGame::monstersAttackAction()
 {
     int monstersInRoom = dungeon_[currentRoom_]->getNumberOfMonsters();
+    auto monsters = dungeon_[currentRoom_]->getMonsters();
     for(int i = 0; i < monstersInRoom; i++)
     {
-        auto monsters = dungeon_[currentRoom_]->getMonsters();
-        monsters[i]->monsterTurn(player_, monsters);
-        if(player_->getHealthPoints() <= 0)
+        if(monsters[i])
         {
-            system("clear");
-            printInformation();
-            std::cout << "You have died!" << '\n';
-            system("read -p 'Press Enter to continue...' var");
-            printEndGameStats();
-            player_.reset();
-            break;
+            monsters[i]->monsterTurn(player_, monsters);
+            dungeon_[currentRoom_]->updateMonstersInRoom();
+            if(player_->getHealthPoints() <= 0)
+            {
+                system("clear");
+                printInformation();
+                std::cout << "You have died!" << '\n';
+                system("read -p 'Press Enter to continue...' var");
+                printEndGameStats();
+                player_.reset();
+                break;
+            }
         }
     }
 }
@@ -129,7 +133,7 @@ void DungeonGame::playerAttackAction()
        index <= dungeon_[currentRoom_]->getNumberOfMonsters())
     {
         auto target = dungeon_[currentRoom_]->getMonsters()[index-1];
-        player_->attack(target);
+        player_->attack(target, player_->getAttackDamage());
         if(target->getHealthPoints() <= 0)
         {
             player_->increaseMobsCounter();

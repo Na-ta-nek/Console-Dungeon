@@ -26,13 +26,14 @@ void Creature::armorPointsDamage(const int& damage)
     }
 }
 
-void Creature::attack(const std::shared_ptr<Creature>& target)
+void Creature::attack(const std::shared_ptr<Creature>& target,
+                      const int& damage)
 {
     isDefending_ = false;
-    int AttackDamage = getAttackDamage();
+    int AttackDamage = damage;
     if(!target->getIsDefending())
     {
-        AttackDamage += rand()%getAttackDamage();
+        AttackDamage += rand()%damage;
     }
     int targetArmorPoints = target->getArmorPoints();
     int targetHealthPoints = target->getHealthPoints();
@@ -65,6 +66,18 @@ bool Creature::getIsDefending() const { return isDefending_; };
 int Creature::getMaxArmorPoints() const { return maxArmorPoints_; };
 int Creature::getMaxHealthPoints() const { return maxHealthPoints_; };
 std::string Creature::getName() const { return name_; };
+
+void Creature::increaseArmorPoints(const int& amount)
+{
+    if(armorPoints_ + amount > maxArmorPoints_)
+    {
+        armorPoints_ = maxArmorPoints_;
+    }
+    else
+    {
+        armorPoints_ += amount;
+    }
+}
 
 void Creature::increaseHealthPoints(const int& amount)
 {
