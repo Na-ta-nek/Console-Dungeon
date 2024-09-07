@@ -12,7 +12,7 @@ Item::~Item() = default;
 void Item::printInformation() const
 {
     std::cout << std::setw(20) << std::left << name_;
-    std::cout << std::setw(4) << std::right << "Value: " << value_ << '\n';
+    std::cout << std::setw(36) << std::right << "Value: " << std::setw(3) << value_ << '\n';
 }
 
 void Item::use(Player& player)

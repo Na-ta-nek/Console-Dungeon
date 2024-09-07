@@ -69,24 +69,24 @@ void Room::printInformation() const
     if(!monsters_.empty())
     {
         
-        std::cout << "------------------------------------------------------------" << '\n';
-        std::cout << std::setw(34) << std::right << "Enemies:" << '\n';
+        std::cout << "-----------------------------------------------------------" << '\n';
+        std::cout << std::setw(33) << std::right << "Enemies:" << '\n';
         for(auto monster : monsters_)
         {
             monster->printInformation();
         }
         if(!lootChest_.empty())
         {
-            std::cout << "------------------------------------------------------------" << '\n';
-            std::cout << std::setw(34) << std::right << "Chest contains " << lootChest_.size() << " items!" << '\n';
+            std::cout << "-----------------------------------------------------------" << '\n';
+            std::cout << std::setw(33) << std::right << "Chest contains " << std::setw(1) << lootChest_.size() << " items!" << '\n';
         }
     }
     else
     {
         if(!lootChest_.empty())
         {
-            std::cout << "------------------------------------------------------------" << '\n';
-            std::cout << std::setw(34) << std::right << "Loot:" << '\n';
+            std::cout << "-----------------------------------------------------------" << '\n';
+            std::cout << std::setw(32) << std::right << "Loot:" << '\n';
             for(auto item : lootChest_)
             {
                 item->printInformation();

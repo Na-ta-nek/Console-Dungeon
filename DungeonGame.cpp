@@ -18,7 +18,6 @@ void DungeonGame::dungeonInitialization(const int& number)
     currentRoom_ = 0;
     for(int i = 0; i < number; i++)
     {
-        //TODO add loot
         dungeon_.push_back(std::make_shared<Room>(Room(i)));
     }
 }
@@ -150,7 +149,6 @@ void DungeonGame::possibleActionsUpdate()
 {
     possibleActions_.clear();
     unsigned index = 1;
-    //TODO item usage
     if(!dungeon_[currentRoom_]->hasRoomMonsters())
     {
         if(dungeon_[currentRoom_]->hasRoomItems())
@@ -159,7 +157,10 @@ void DungeonGame::possibleActionsUpdate()
                                           "Use item",
                                           [this](){ this->useItemAction(); }));
             index++;
-            //TODO adding item to backpack
+            possibleActions_.push_back(Action(index,
+                                          "Take item",
+                                          [this](){ this->takeItemAction(); }));
+            index++;
         }
         possibleActions_.push_back(Action(index,
                                           "Go to next room",
@@ -177,6 +178,7 @@ void DungeonGame::possibleActionsUpdate()
                                           [this](){ this->playerDefendAction(); }));
         index++;
     }
+    //TODO Open backpack
 
     possibleActions_.push_back(Action(index,
                                       "Run away",
@@ -196,10 +198,10 @@ void DungeonGame::printEndGameStats()
 
 void DungeonGame::printInformation() const
 {
-    std::cout << std::setw(34) << std::right << "Room nr " << currentRoom_+1 << '\n';
+    std::cout << std::setw(34) << std::right << "Room nr " << std::setw(2) << currentRoom_+1 << '\n';
     dungeon_[currentRoom_]->printInformation();
     player_->printInformation();
-    std::cout << "------------------------------------------------------------" << '\n';
+    std::cout << "-----------------------------------------------------------" << '\n';
 }
 
 void DungeonGame::printPossibleActions() const
@@ -263,6 +265,39 @@ void DungeonGame::switchToNextRoomAction()
         currentRoom_++;
         gamePlay();
     }
+}
+
+void DungeonGame::takeItemAction()
+{
+    if(player_->isBackpackFull())
+    {
+        std::cout << "Backpack is full!" << '\n';
+        system("read -p 'Press Enter to continue...' var");
+    }
+    else
+    {
+        if(dungeon_[currentRoom_]->getNumberOfItems() > 1)
+        {
+            system("clear");
+            printInformation();
+            std::cout << "Choose item to use by entering index of the item" << '\n';
+            std::cin >> keyPressed_;
+            std::cin.ignore();
+        }
+        else
+        {
+            keyPressed_ = 49;
+        }
+        int index = (int) keyPressed_ - 48;
+        if(index > 0 && 
+        index <= dungeon_[currentRoom_]->getNumberOfItems())
+        {
+            auto item = dungeon_[currentRoom_]->getItem(index-1);
+            player_->putItemInBackpack(item);
+            dungeon_[currentRoom_]->updateItemsInRoom(index-1);
+        }
+    }
+    gamePlay();
 }
 
 void DungeonGame::useItemAction()

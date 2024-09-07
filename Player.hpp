@@ -2,13 +2,16 @@
 #include <iomanip>
 #include <iostream>
 #include <memory>
+#include <vector>
 
 #include "Creature.hpp"
+#include "GameConfig.hpp"
 #include "Item.hpp"
 
 class Player : public Creature
 {
 private:
+    std::vector<std::shared_ptr<Item>> backpack_{};
     unsigned dungeonsCompleted_ = 0;
     unsigned mobsKilled_ = 0;
     unsigned roomsPassed_ = 0;
@@ -22,6 +25,8 @@ public:
     void increaseDungeonsCounter();
     void increaseMobsCounter();
     void increaseRoomsCounter();
+    bool isBackpackFull() const;
     void printInformation() const;
+    void putItemInBackpack(const std::shared_ptr<Item>& item);
     void useItem(const std::shared_ptr<Item>& item);
 };

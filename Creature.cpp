@@ -80,10 +80,8 @@ void Creature::increaseHealthPoints(const int& amount)
 
 void Creature::printInformation() const
 {
-    std::cout << std::setw(20) << std::left << name_;
-    std::cout << std::setw(17) << std::right << "Health: " << healthPoints_ << "/" << maxHealthPoints_;
-    std::cout << std::setw(1) << " ";
-    std::cout << "Armor: " << armorPoints_ << "/" << maxArmorPoints_ << '\n';
+    std::cout << std::left << std::setw(20) << name_;
+    std::cout << std::right << std::setw(17) << "Health: " << std::setw(3) << healthPoints_ << "/" << maxHealthPoints_ << " " << "Armor: " << std::setw(3) << armorPoints_ << "/" << maxArmorPoints_ << '\n';
 }
 
 void Creature::resetHealthPoints() { healthPoints_ = maxHealthPoints_; };
