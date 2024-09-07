@@ -18,7 +18,7 @@ void DungeonGame::dungeonInitialization(const int& number)
     currentRoom_ = 0;
     for(int i = 0; i <= number; i++)
     {
-        dungeon_.push_back(std::make_shared<Room>(Room(i)));
+        dungeon_.push_back(std::make_shared<Room>(Room(number, i)));
     }
 }
 

@@ -38,8 +38,8 @@ void Creature::attack(const std::shared_ptr<Creature>& target,
     int targetArmorPoints = target->getArmorPoints();
     int targetHealthPoints = target->getHealthPoints();
     int maxTargetArmorPoints = target->getMaxArmorPoints();
-    double armorAbsorption = targetArmorPoints / maxTargetArmorPoints;
-    int armorDamageDealt = std::round(AttackDamage * armorAbsorption);
+    double armorAbsorption = ((double)targetArmorPoints / (double)maxTargetArmorPoints);
+    int armorDamageDealt = std::ceil(AttackDamage * armorAbsorption);
     int healthDamageDealt = AttackDamage - armorDamageDealt;
     target->armorPointsDamage(armorDamageDealt);
     target->healthPointsDamage(healthDamageDealt);

@@ -8,7 +8,7 @@ DeathKnight::DeathKnight() : Monster(0.3, //abilityChance
                            100, //healthPoints
                            250, //maxArmorPoints
                            100, //maxHealthPoints
-                           "DeathKnight") {};
+                           "Death Knight") {};
 
 DeathKnight::~DeathKnight() = default;
 

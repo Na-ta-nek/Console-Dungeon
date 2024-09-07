@@ -20,12 +20,13 @@
 class Room
 {
 private:
+    int amountOfRoomsInDungeon_ = 0;
     int difficultyLevel_ = 0;
     std::vector<std::shared_ptr<Monster>> monsters_{};
     std::vector<std::shared_ptr<Item>> lootChest_{};
 public:
     Room();
-    Room(int difficultyLevel);
+    Room(int amountOfRoomsInDungeon, int difficultyLevel);
     ~Room();
 
     std::shared_ptr<Item> getItem(const int& index) const;

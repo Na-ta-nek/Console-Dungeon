@@ -2,8 +2,11 @@
 
 Room::Room() = default;
 
-Room::Room(int difficultyLevel) : difficultyLevel_(difficultyLevel)
+Room::Room(int amountOfRoomsInDungeon,
+           int difficultyLevel) : amountOfRoomsInDungeon_(amountOfRoomsInDungeon),
+                                  difficultyLevel_(difficultyLevel)
 {
+    amountOfRoomsInDungeon_ += 1;
     monstersInitialization();
     lootInitialization();
 }
@@ -48,16 +51,17 @@ void Room::lootInitialization()
 
 void Room::monstersInitialization()
 {
-    int monstersAmount = std::round(((((double) rand() / (RAND_MAX)) + 
-                                      ((difficultyLevel_ + 1) / DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON)) /
-                                      2) * (ROOM_CONFIG::MAX_MONSTERS_IN_ROOM));
+    double levelFactor = ((double)(difficultyLevel_+1) / (double)amountOfRoomsInDungeon_);
+    double randomFactor = ((((double) rand() / (RAND_MAX)) + levelFactor) / 2.2);
+    std::cout << randomFactor * (double)(ROOM_CONFIG::MAX_MONSTERS_IN_ROOM+1) << '\n';
+    system("read -p 'Press Enter to continue...' var");
+    int monstersAmount = std::floor(randomFactor * (double)(ROOM_CONFIG::MAX_MONSTERS_IN_ROOM+1));
+    
     int monsterIndex = 0;
-    double randomFactor = 0.0;
     for(int i = 0; i < monstersAmount; i++)
     {
-        monsterIndex = std::floor(((((double) rand() / (RAND_MAX)) + 
-                                      ((difficultyLevel_ + 1) / DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON)) /
-                                      2) * (ROOM_CONFIG::POSSIBLE_MONSTERS_CLASSES));
+        randomFactor = ((((double) rand() / (RAND_MAX)) + levelFactor) / 2);
+        monsterIndex = std::floor(randomFactor * (double)ROOM_CONFIG::POSSIBLE_MONSTERS_CLASSES);
         monsters_.push_back(spawnMobByIndex(monsterIndex));
     }
 }
