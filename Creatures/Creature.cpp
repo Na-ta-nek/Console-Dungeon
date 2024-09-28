@@ -14,6 +14,8 @@ Creature::Creature(int armorPoints,
                                        maxHealthPoints_(maxHealthPoints),
                                        name_(name) {};
 
+Creature::~Creature() {};
+
 void Creature::armorPointsDamage(const int& damage)
 {
     if(armorPoints_ - damage < 0)

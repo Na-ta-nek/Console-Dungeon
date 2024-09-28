@@ -27,7 +27,7 @@ public:
     Creature(Creature&&) = default;
     Creature& operator=(const Creature&) = default;
     Creature& operator=(Creature&&) = default;
-    virtual ~Creature() = default;
+    virtual ~Creature() = 0;
 
     void armorPointsDamage(const int& damage);
     void attack(const std::shared_ptr<Creature>& target,

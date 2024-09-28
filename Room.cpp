@@ -53,7 +53,6 @@ void Room::monstersInitialization()
 {
     double levelFactor = ((double)(difficultyLevel_+1) / (double)amountOfRoomsInDungeon_);
     double randomFactor = ((((double) rand() / (RAND_MAX)) + levelFactor) / 2.2);
-    std::cout << randomFactor * (double)(ROOM_CONFIG::MAX_MONSTERS_IN_ROOM+1) << '\n';
     system("read -p 'Press Enter to continue...' var");
     int monstersAmount = std::floor(randomFactor * (double)(ROOM_CONFIG::MAX_MONSTERS_IN_ROOM+1));
     
