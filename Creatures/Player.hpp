@@ -6,7 +6,7 @@
 
 #include "Creature.hpp"
 #include "../GameConfig.hpp"
-#include "../Item.hpp"
+#include "../Items/Item.hpp"
 
 class Player : public Creature
 {

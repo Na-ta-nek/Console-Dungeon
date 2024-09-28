@@ -45,4 +45,5 @@ public:
     void increaseHealthPoints(const int& amount);
     void printInformation() const;
     void resetHealthPoints();
+    void setAttackDamage(const int& damage);
 };

@@ -1,7 +1,8 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include "DungeonGame.hpp"
-#include "Player.hpp"
+#include "Creatures/Creature.hpp"
+#include "Creatures/Player.hpp"
 #include "Room.hpp"
 
 TEST(PlayerClassTests, CreateDefaultPlayer) {

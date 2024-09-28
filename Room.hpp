@@ -4,18 +4,27 @@
 #include <memory>
 #include <vector>
 
-#include "DeathKnight.hpp"
-#include "Dragon.hpp"
-#include "Golem.hpp"
 #include "GameConfig.hpp"
-#include "Item.hpp"
-#include "Monster.hpp"
-#include "Orc.hpp"
-#include "Shaman.hpp"
-#include "Skeleton.hpp"
-#include "Vampire.hpp"
-#include "Wizard.hpp"
-#include "Zombie.hpp"
+#include "Creatures/DeathKnight.hpp"
+#include "Creatures/Dragon.hpp"
+#include "Creatures/Golem.hpp"
+#include "Creatures/Monster.hpp"
+#include "Creatures/Orc.hpp"
+#include "Creatures/Shaman.hpp"
+#include "Creatures/Skeleton.hpp"
+#include "Creatures/Vampire.hpp"
+#include "Creatures/Wizard.hpp"
+#include "Creatures/Zombie.hpp"
+#include "Items/Bandage.hpp"
+#include "Items/Chestplate.hpp"
+#include "Items/Dagger.hpp"
+#include "Items/FirstAidKit.hpp"
+#include "Items/Gear.hpp"
+#include "Items/Item.hpp"
+#include "Items/Pill.hpp"
+#include "Items/Shield.hpp"
+#include "Items/Spear.hpp"
+#include "Items/Sword.hpp"
 
 class Room
 {

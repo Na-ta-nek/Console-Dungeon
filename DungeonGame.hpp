@@ -7,7 +7,7 @@
 
 #include "Action.hpp"
 #include "GameConfig.hpp"
-#include "Player.hpp"
+#include "Creatures/Player.hpp"
 #include "Room.hpp"
 
 class DungeonGame

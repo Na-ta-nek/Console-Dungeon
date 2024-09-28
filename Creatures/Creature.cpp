@@ -100,3 +100,5 @@ void Creature::printInformation() const
 }
 
 void Creature::resetHealthPoints() { healthPoints_ = maxHealthPoints_; };
+
+void Creature::setAttackDamage(const int& damage) { attackDamage_ = damage; };

@@ -43,11 +43,11 @@ void Player::putItemInBackpack(const std::shared_ptr<Item>& item)
 
 void Player::useItem(const int& index)
 {
-    backpack_[index]->use(*this);
+    backpack_[index]->use(this);
     backpack_.erase(backpack_.begin()+index);
 }
 
 void Player::useItem(const std::shared_ptr<Item>& item)
 {
-    item->use(*this);
+    item->use(this);
 }

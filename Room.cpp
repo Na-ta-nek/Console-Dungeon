@@ -40,12 +40,7 @@ void Room::lootInitialization()
     for(int i = 0; i < itemsAmount; i++)
     {
         //TODO more items
-        lootChest_.push_back(
-            std::make_shared<Item>(
-                Item(
-                    "Pills",
-                    30
-                )));
+        lootChest_.push_back(std::make_shared<Chestplate>());
     }
 }
 
@@ -53,7 +48,6 @@ void Room::monstersInitialization()
 {
     double levelFactor = ((double)(difficultyLevel_+1) / (double)amountOfRoomsInDungeon_);
     double randomFactor = ((((double) rand() / (RAND_MAX)) + levelFactor) / 2.2);
-    system("read -p 'Press Enter to continue...' var");
     int monstersAmount = std::floor(randomFactor * (double)(ROOM_CONFIG::MAX_MONSTERS_IN_ROOM+1));
     
     int monsterIndex = 0;
