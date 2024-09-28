@@ -10,8 +10,6 @@ Shaman::Shaman() : Monster(0.7, //abilityChance
                            200, //maxHealthPoints
                            "Shaman") {};
 
-Shaman::~Shaman() = default;
-
 void Shaman::ability(const std::shared_ptr<Player>& player,
                      const std::vector<std::shared_ptr<Monster>>& monsters)
 {

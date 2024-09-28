@@ -12,7 +12,6 @@ private:
     int abilityPoints_ = 0;
     double attackChance_ = 0.0;
 public:
-    Monster() = default;
     Monster(double abilityChance,
             int abilityPoints,
             int armorPoints,

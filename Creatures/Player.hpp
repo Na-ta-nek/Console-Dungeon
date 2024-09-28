@@ -16,7 +16,6 @@ private:
     unsigned mobsKilled_ = 0;
     unsigned roomsPassed_ = 0;
 public:
-    Player() = default;
     Player(std::string name);
 
     unsigned getDungeonsCompleted() const;

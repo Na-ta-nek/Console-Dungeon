@@ -10,7 +10,5 @@ Skeleton::Skeleton() : Monster(0.0, //abilityChance
                                50, //maxHealthPoints
                                "Skeleton") {};
 
-Skeleton::~Skeleton() = default;
-
 void Skeleton::ability(const std::shared_ptr<Player>& player,
-                     const std::vector<std::shared_ptr<Monster>>& monsters) {};
+                       const std::vector<std::shared_ptr<Monster>>& monsters) {};

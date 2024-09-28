@@ -10,10 +10,8 @@ Vampire::Vampire() : Monster(0.3, //abilityChance
                              200, //maxHealthPoints
                              "Vampire") {};
 
-Vampire::~Vampire() = default;
-
 void Vampire::ability(const std::shared_ptr<Player>& player,
-                     const std::vector<std::shared_ptr<Monster>>& monsters)
+                      const std::vector<std::shared_ptr<Monster>>& monsters)
 {
     attack(player, getAttackDamage());
     increaseHealthPoints(getAbilityPoints());

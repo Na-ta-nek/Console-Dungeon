@@ -10,8 +10,6 @@ Wizard::Wizard() : Monster(0.4, //abilityChance
                            100, //maxHealthPoints
                            "Wizard") {};
 
-Wizard::~Wizard() = default;
-
 void Wizard::ability(const std::shared_ptr<Player>& player,
                      const std::vector<std::shared_ptr<Monster>>& monsters)
 {

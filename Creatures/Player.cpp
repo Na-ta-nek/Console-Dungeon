@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 Player::Player(std::string name) : Creature(0, //armorPoints
-                                            30, //AttackDamage
+                                            5, //AttackDamage
                                             100, //healthPoints
                                             100, //maxArmorPoints
                                             100, //maxHealthPoints

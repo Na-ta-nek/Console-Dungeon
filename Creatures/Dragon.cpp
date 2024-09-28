@@ -9,9 +9,7 @@ Dragon::Dragon() : Monster(0.1, //abilityChance
                            100, //maxArmorPoints
                            999, //maxHealthPoints
                            "Dragon") {};
-
-Dragon::~Dragon() = default;
-
+                           
 void Dragon::ability(const std::shared_ptr<Player>& player,
                      const std::vector<std::shared_ptr<Monster>>& monsters)
 {

@@ -10,7 +10,5 @@ Zombie::Zombie() : Monster(0.0, //abilityChance
                            100, //maxHealthPoints
                            "Zombie") {};
 
-Zombie::~Zombie() = default;
-
 void Zombie::ability(const std::shared_ptr<Player>& player,
                      const std::vector<std::shared_ptr<Monster>>& monsters) {};

@@ -10,10 +10,8 @@ DeathKnight::DeathKnight() : Monster(0.3, //abilityChance
                            100, //maxHealthPoints
                            "Death Knight") {};
 
-DeathKnight::~DeathKnight() = default;
-
 void DeathKnight::ability(const std::shared_ptr<Player>& player,
-                     const std::vector<std::shared_ptr<Monster>>& monsters)
+                          const std::vector<std::shared_ptr<Monster>>& monsters)
 {
     for(auto monster : monsters)
     {

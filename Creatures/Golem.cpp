@@ -10,10 +10,8 @@ Golem::Golem() : Monster(0.1, //abilityChance
                          500, //maxHealthPoints
                          "Golem") {};
 
-Golem::~Golem() = default;
-
 void Golem::ability(const std::shared_ptr<Player>& player,
-                     const std::vector<std::shared_ptr<Monster>>& monsters)
+                    const std::vector<std::shared_ptr<Monster>>& monsters)
 {
     defend();
     increaseArmorPoints(getAbilityPoints());

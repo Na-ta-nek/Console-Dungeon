@@ -15,8 +15,6 @@ private:
     int maxHealthPoints_ = 100;
     std::string name_ = "Creature";
 public:
-    Creature() = default;
-    Creature(std::string name);
     Creature(int armorPoints,
              int attackDamage,
              int healthPoints,

@@ -5,13 +5,13 @@
 #include "Creatures/Player.hpp"
 #include "Room.hpp"
 
-TEST(PlayerClassTests, CreateDefaultPlayer) {
-  Player p1{};
+// TEST(PlayerClassTests, CreateDefaultPlayer) {
+//   Player p1{};
 
-  EXPECT_EQ(p1.getName(), "Player");
-  EXPECT_EQ(p1.getHealthPoints(), 100);
-  EXPECT_EQ(p1.getArmorPoints(), 0);
-}
+//   EXPECT_EQ(p1.getName(), "Player");
+//   EXPECT_EQ(p1.getHealthPoints(), 100);
+//   EXPECT_EQ(p1.getArmorPoints(), 0);
+// }
 
 TEST(PlayerClassTests, CreatePlayerWithName) {
   Player p1{"Player1"};

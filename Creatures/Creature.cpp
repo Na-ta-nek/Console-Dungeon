@@ -1,7 +1,5 @@
 #include "Creature.hpp"
 
-Creature::Creature(std::string name) : name_(name) {};
-
 Creature::Creature(int armorPoints,
                    int attackDamage,
                    int healthPoints,
