@@ -25,9 +25,13 @@ void Player::printInformation() const
 {
     std::cout << "-----------------------------------------------------------" << '\n';
     std::cout << std::setw(33) << std::right << "Player:" << '\n';
-    Creature::printInformation();
+    std::cout << std::left << std::setw(20) << getName();
+    std::cout << std::right << std::setw(32) << "Damage: " << std::setw(7) << getAttackDamage() << "\n";
+    std::cout << std::right << std::setw(52) << "Health: " << std::setw(3) << getHealthPoints() << "/" << std::setw(3) <<  getMaxHealthPoints() << "\n";
+    std::cout << std::right << std::setw(52) << "Armor: " << std::setw(3) << getArmorPoints() << "/" << std::setw(3) << getMaxArmorPoints() << '\n';
     if(!backpack_.empty())
     {
+        std::cout << "\n";
         std::cout << std::setw(34) << std::right << "Backpack:" << '\n';
         for(auto item : backpack_)
         {
