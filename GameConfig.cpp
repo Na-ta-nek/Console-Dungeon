@@ -7,6 +7,7 @@ namespace DUNGEON_CONFIG
 
 namespace ROOM_CONFIG
 {
+    const double CLASS_RATIO = 0.35;
     const unsigned int MAX_MONSTERS_IN_ROOM = 3;
     const unsigned int MAX_ITEMS_IN_ROOM = 3;
     const unsigned int POSSIBLE_MONSTERS_CLASSES = 9;

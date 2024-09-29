@@ -16,7 +16,7 @@ void DungeonGame::dungeonCompletedCase()
 void DungeonGame::dungeonInitialization(const int& number)
 {
     currentRoom_ = 0;
-    for(int i = 0; i <= number; i++)
+    for(int i = 1; i <= number; i++)
     {
         dungeon_.push_back(std::make_shared<Room>(Room(number, i)));
     }
@@ -61,7 +61,7 @@ void DungeonGame::gameStart()
     }
     player_ = std::make_shared<Player>(Player(playerName));
 
-    dungeonInitialization(rand()%DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON);
+    dungeonInitialization(rand()%DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON + 1);
     gamePlay();
 }
 
@@ -254,7 +254,7 @@ void DungeonGame::startAgainDialogue(std::function<void()> function)
     if(keyPressed_ == 49) // '1'
     {
         dungeon_.clear();
-        dungeonInitialization((rand()%10) + 1);
+        dungeonInitialization(rand()%DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON + 1);
         player_->resetHealthPoints();
         gamePlay();
     }

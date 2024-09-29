@@ -19,7 +19,7 @@
 #include "Items/Chestplate.hpp"
 #include "Items/Dagger.hpp"
 #include "Items/FirstAidKit.hpp"
-#include "Items/Gear.hpp"
+#include "Items/Helmet.hpp"
 #include "Items/Item.hpp"
 #include "Items/Pill.hpp"
 #include "Items/Shield.hpp"
@@ -47,6 +47,7 @@ public:
     void lootInitialization();
     void monstersInitialization();
     void printInformation() const;
+    std::shared_ptr<Item> spawnItemByIndex(const int& index);
     std::shared_ptr<Monster> spawnMobByIndex(const int& index);
     void updateItemsInRoom(const int& index);
     void updateMonstersInRoom();

@@ -33,28 +33,91 @@ bool Room::hasRoomMonsters() const { return !monsters_.empty(); };
 
 void Room::lootInitialization()
 {
-    int itemsAmount = std::floor(((double) rand() / (RAND_MAX)) * 
-                                     ROOM_CONFIG::MAX_ITEMS_IN_ROOM + 
-                                     (difficultyLevel_ / 
-                                     DUNGEON_CONFIG::MAX_ROOMS_IN_DUNGEON));
+    double levelFactor = static_cast<double>(difficultyLevel_) / static_cast<double>(amountOfRoomsInDungeon_);
+    double randomFactor = std::abs(levelFactor - static_cast<double>(rand()) / (RAND_MAX));
+    int itemsAmount = static_cast<int>(std::round(randomFactor * static_cast<double>(ROOM_CONFIG::MAX_ITEMS_IN_ROOM)));
+    
+    double classRandomFactor = 0.0;
+    int itemIndex = 0;
     for(int i = 0; i < itemsAmount; i++)
     {
-        //TODO more items
-        lootChest_.push_back(std::make_shared<Chestplate>());
+        randomFactor = ((static_cast<double>(rand()) / (RAND_MAX)) + levelFactor) / 2.0;
+        classRandomFactor = static_cast<double>(rand()) / (RAND_MAX);
+        if(classRandomFactor < 0.5)
+        {
+            if(randomFactor < 0.5)
+            {
+                itemIndex = 0;
+            }
+            else if(randomFactor < 0.85)
+            {
+                itemIndex = 1;
+            }
+            else
+            {
+                itemIndex = 2;
+            }
+        }
+        else if(classRandomFactor < 0.85)
+        {
+            if(randomFactor < 0.5)
+            {
+                itemIndex = 3;
+            }
+            else if(randomFactor < 0.85)
+            {
+                itemIndex = 4;
+            }
+            else
+            {
+                itemIndex = 5;
+            }
+        }
+        else
+        {
+            if(randomFactor < 0.5)
+            {
+                itemIndex = 6;
+            }
+            else if(randomFactor < 0.85)
+            {
+                itemIndex = 7;
+            }
+            else
+            {
+                itemIndex = 8;
+            }
+        }
+        lootChest_.push_back(spawnItemByIndex(itemIndex));
     }
 }
 
 void Room::monstersInitialization()
 {
-    double levelFactor = ((double)(difficultyLevel_+1) / (double)amountOfRoomsInDungeon_);
-    double randomFactor = ((((double) rand() / (RAND_MAX)) + levelFactor) / 2.2);
-    int monstersAmount = std::floor(randomFactor * (double)(ROOM_CONFIG::MAX_MONSTERS_IN_ROOM+1));
+    double levelFactor = static_cast<double>(difficultyLevel_) / static_cast<double>(amountOfRoomsInDungeon_);
+    double randomFactor = std::abs(levelFactor - static_cast<double>(rand()) / (RAND_MAX));
+    int monstersAmount = static_cast<int>(std::round(randomFactor * static_cast<double>(ROOM_CONFIG::MAX_MONSTERS_IN_ROOM)));
     
     int monsterIndex = 0;
+    double classRatio = 1.0 - ROOM_CONFIG::CLASS_RATIO;
+    double classFactor = 0.0;
     for(int i = 0; i < monstersAmount; i++)
     {
-        randomFactor = ((((double) rand() / (RAND_MAX)) + levelFactor) / 2);
-        monsterIndex = std::floor(randomFactor * (double)ROOM_CONFIG::POSSIBLE_MONSTERS_CLASSES);
+        randomFactor = ((static_cast<double>(rand()) / (RAND_MAX)) + levelFactor) / 2.0;
+        classFactor = 1.0 - classRatio;
+
+        for(monsterIndex = 0; monsterIndex < ROOM_CONFIG::POSSIBLE_MONSTERS_CLASSES; monsterIndex++)
+        {
+            randomFactor -= classFactor;
+            if(randomFactor <= 0)
+            {
+                break;
+            }
+            else
+            {
+                classFactor *= classRatio;
+            }
+        }
         monsters_.push_back(spawnMobByIndex(monsterIndex));
     }
 }
@@ -87,6 +150,32 @@ void Room::printInformation() const
                 item->printInformation();
             }
         }
+    }
+}
+
+std::shared_ptr<Item> Room::spawnItemByIndex(const int& index)
+{
+    switch (index) {
+        case 0:
+            return std::make_shared<Pill>();
+        case 1:
+            return std::make_shared<Bandage>();
+        case 2:
+            return std::make_shared<FirstAidKit>();
+        case 3:
+            return std::make_shared<Shield>();
+        case 4:
+            return std::make_shared<Helmet>();
+        case 5:
+            return std::make_shared<Chestplate>();
+        case 6:
+            return std::make_shared<Dagger>();
+        case 7:
+            return std::make_shared<Spear>();
+        case 8:
+            return std::make_shared<Sword>();
+        default:
+            return nullptr;
     }
 }
 
