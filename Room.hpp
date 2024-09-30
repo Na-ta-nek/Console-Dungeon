@@ -39,7 +39,7 @@ public:
     ~Room();
 
     std::shared_ptr<Item> getItem(const int& index) const;
-    std::vector<std::shared_ptr<Monster>> getMonsters() const;
+    const std::vector<std::shared_ptr<Monster>>& getMonsters() const;
     int getNumberOfItems() const;
     int getNumberOfMonsters() const;
     bool hasRoomItems() const;

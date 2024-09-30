@@ -5,7 +5,7 @@ Player::Player(std::string name) : Creature(0, //armorPoints
                                             100, //healthPoints
                                             100, //maxArmorPoints
                                             100, //maxHealthPoints
-                                            name) {};
+                                            name) { backpack_.reserve(PLAYER_CONFIG::MAX_ITEMS_IN_BACKPACK); };
 
 unsigned Player::getDungeonsCompleted() const { return dungeonsCompleted_; };
 unsigned Player::getMobsKilled() const { return mobsKilled_; };
@@ -42,7 +42,7 @@ void Player::printInformation() const
 
 void Player::putItemInBackpack(const std::shared_ptr<Item>& item)
 {
-    backpack_.push_back(item);
+    backpack_.emplace_back(item);
 }
 
 void Player::useItem(const int& index)

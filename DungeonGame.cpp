@@ -16,9 +16,10 @@ void DungeonGame::dungeonCompletedCase()
 void DungeonGame::dungeonInitialization(const int& number)
 {
     currentRoom_ = 0;
+    dungeon_.reserve(number);
     for(int i = 1; i <= number; i++)
     {
-        dungeon_.push_back(std::make_shared<Room>(Room(number, i)));
+        dungeon_.emplace_back(std::make_shared<Room>(number, i));
     }
 }
 
@@ -76,25 +77,21 @@ void DungeonGame::getUserNickname(std::string& name)
 
 void DungeonGame::monstersAttackAction()
 {
-    int monstersInRoom = dungeon_[currentRoom_]->getNumberOfMonsters();
     auto monsters = dungeon_[currentRoom_]->getMonsters();
-    for(int i = 0; i < monstersInRoom; i++)
+    std::for_each(begin(monsters),
+                  end(monsters),
+                  [this, &monsters]
+                  (const auto& monster)
+                  { monster->monsterTurn(player_, monsters); });
+    dungeon_[currentRoom_]->updateMonstersInRoom();
+    if(player_->getHealthPoints() <= 0)
     {
-        if(monsters[i])
-        {
-            monsters[i]->monsterTurn(player_, monsters);
-            dungeon_[currentRoom_]->updateMonstersInRoom();
-            if(player_->getHealthPoints() <= 0)
-            {
-                system("clear");
-                printInformation();
-                std::cout << "You have died!" << '\n';
-                system("read -p 'Press Enter to continue...' var");
-                printEndGameStats();
-                player_.reset();
-                break;
-            }
-        }
+        system("clear");
+        printInformation();
+        std::cout << "You have died!" << '\n';
+        system("read -p 'Press Enter to continue...' var");
+        printEndGameStats();
+        player_.reset();
     }
 }
 
@@ -165,41 +162,41 @@ void DungeonGame::possibleActionsUpdate()
     {
         if(dungeon_[currentRoom_]->hasRoomItems())
         {
-            possibleActions_.push_back(Action(index,
+            possibleActions_.emplace_back(index,
                                           "Use item",
-                                          [this](){ this->useItemAction(); }));
+                                          [this](){ this->useItemAction(); });
             index++;
-            possibleActions_.push_back(Action(index,
+            possibleActions_.emplace_back(index,
                                           "Take item",
-                                          [this](){ this->takeItemAction(); }));
+                                          [this](){ this->takeItemAction(); });
             index++;
         }
-        possibleActions_.push_back(Action(index,
-                                          "Go to next room",
-                                          [this](){ this->switchToNextRoomAction(); }));
+        possibleActions_.emplace_back(index,
+                                      "Go to next room",
+                                      [this](){ this->switchToNextRoomAction(); });
         index++;
     }
     else
     {
-        possibleActions_.push_back(Action(index,
-                                          "Attack",
-                                          [this](){ this->playerAttackAction(); }));
+        possibleActions_.emplace_back(index,
+                                      "Attack",
+                                      [this](){ this->playerAttackAction(); });
         index++;
-        possibleActions_.push_back(Action(index,
-                                          "Defend",
-                                          [this](){ this->playerDefendAction(); }));
+        possibleActions_.emplace_back(index,
+                                      "Defend",
+                                      [this](){ this->playerDefendAction(); });
         index++;
     }
     if(!player_->isBackpackEmpty())
     {
-        possibleActions_.push_back(Action(index,
-                                          "Open backpack",
-                                          [this](){ this->openBackpackAction(); }));
+        possibleActions_.emplace_back(index,
+                                      "Open backpack",
+                                      [this](){ this->openBackpackAction(); });
         index++;
     }
-    possibleActions_.push_back(Action(index,
-                                      "Run away",
-                                      [this](){ this->runAwayAction(); }));
+    possibleActions_.emplace_back(index,
+                                  "Run away",
+                                  [this](){ this->runAwayAction(); });
     index++;
 }
 

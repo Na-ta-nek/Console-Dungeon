@@ -7,7 +7,9 @@ Room::Room(int amountOfRoomsInDungeon,
                                   difficultyLevel_(difficultyLevel)
 {
     amountOfRoomsInDungeon_ += 1;
+    monsters_.reserve(ROOM_CONFIG::MAX_MONSTERS_IN_ROOM);
     monstersInitialization();
+    lootChest_.reserve(ROOM_CONFIG::MAX_ITEMS_IN_ROOM);
     lootInitialization();
 }
 
@@ -18,7 +20,7 @@ std::shared_ptr<Item> Room::getItem(const int& index) const
     return lootChest_[index];
 }
 
-std::vector<std::shared_ptr<Monster>> Room::getMonsters() const
+const std::vector<std::shared_ptr<Monster>>& Room::getMonsters() const
 {
     return monsters_;
 }
@@ -88,7 +90,7 @@ void Room::lootInitialization()
                 itemIndex = 8;
             }
         }
-        lootChest_.push_back(spawnItemByIndex(itemIndex));
+        lootChest_.emplace_back(spawnItemByIndex(itemIndex));
     }
 }
 
@@ -118,7 +120,7 @@ void Room::monstersInitialization()
                 classFactor *= classRatio;
             }
         }
-        monsters_.push_back(spawnMobByIndex(monsterIndex));
+        monsters_.emplace_back(spawnMobByIndex(monsterIndex));
     }
 }
 
@@ -215,11 +217,6 @@ void Room::updateItemsInRoom(const int& index)
 
 void Room::updateMonstersInRoom()
 {
-    for(int i = 0; i < monsters_.size(); i++)
-    {
-        if(monsters_[i]->getHealthPoints() <= 0)
-        {
-            monsters_.erase(monsters_.begin()+i);
-        }
-    }
+    std::erase_if(monsters_,
+                  [](const auto& monster){ return monster->getHealthPoints() <= 0; });
 }
