@@ -54,4 +54,6 @@ void Player::useItem(const int& index)
 void Player::useItem(const std::shared_ptr<Item>& item)
 {
     item->use(this);
+    std::erase_if(backpack_,
+                  [item](const auto& itemInBackpack){ return item == itemInBackpack; });
 }
