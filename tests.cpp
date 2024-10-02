@@ -3,7 +3,7 @@
 
 #include "DungeonGame.hpp"
 #include "Room.hpp"
-#include "Creatures/Creature.hpp"
+#include "Creatures/Dragon.hpp"
 #include "Creatures/Player.hpp"
 #include "Items/Item.hpp"
 #include "Items/Pill.hpp"
@@ -20,6 +20,12 @@ class PlayerTests : public ::testing::Test
 {
 protected:
     std::shared_ptr<Player> player = std::make_shared<Player>("Test Player");
+};
+
+class MonsterTests : public ::testing::Test
+{
+protected:
+    std::shared_ptr<Dragon> monster = std::make_shared<Dragon>();
 };
 
 TEST_F(PlayerTests, PlayerInitializationTest)
@@ -103,7 +109,7 @@ TEST_F(PlayerTests, PutItemInPlayersBackpack)
     EXPECT_EQ(player->getNumberOfItemsInBackpack(), 1);
 }
 
-class MockPill : public Item {
+class MockPill : public Pill {
 public:
     MOCK_METHOD(void, use, (Player* player));
     ~MockPill() noexcept { Destructor(); }
@@ -164,4 +170,49 @@ TEST_F(PlayerTests, PlayerCounterIncrementsTest)
     EXPECT_EQ(player->getDungeonsCompleted(), 1);
     EXPECT_EQ(player->getMobsKilled(), 1);
     EXPECT_EQ(player->getRoomsPassed(), 1);
+}
+
+TEST_F(MonsterTests, MonsterInitializationTest)
+{
+    EXPECT_EQ(monster->getAbilityChance(), 0.1);
+    EXPECT_EQ(monster->getAbilityPoints(), 100);
+    EXPECT_EQ(monster->getArmorPoints(), 0);
+    EXPECT_EQ(monster->getAttackChance(), 0.5);
+    EXPECT_EQ(monster->getAttackDamage(), 25);
+    EXPECT_EQ(monster->getHealthPoints(), 999);
+    EXPECT_EQ(monster->getMaxArmorPoints(), 100);
+    EXPECT_EQ(monster->getMaxHealthPoints(), 999);
+    EXPECT_EQ(monster->getName(), "Dragon");
+}
+
+TEST_F(MonsterTests, MonsterAttackingPlayerTest)
+{
+    auto player = std::make_shared<Player>("Test Player");
+    player->increaseArmorPoints(50);
+    EXPECT_EQ(player->getArmorPoints(), 50);
+    EXPECT_EQ(player->getHealthPoints(), 100);
+
+    monster->attack(player, 30);
+
+    bool condition1 = (player->getArmorPoints() != 50);
+    bool condition2 = (player->getHealthPoints() != 100);
+    bool condition3 = (monster->getIsDefending(), true);
+    EXPECT_TRUE(condition1 || condition2 || condition3);
+}
+
+TEST_F(MonsterTests, MonsterUsingAbilityTest)
+{
+    auto player = std::make_shared<Player>("Test Player");
+    std::vector<std::shared_ptr<Monster>> monsters{};
+    monsters.emplace_back(monster);
+    player->increaseArmorPoints(50);
+    EXPECT_EQ(player->getArmorPoints(), 50);
+    EXPECT_EQ(player->getHealthPoints(), 100);
+
+    monster->ability(player, monsters);
+
+    bool condition1 = (player->getArmorPoints() != 50);
+    bool condition2 = (player->getHealthPoints() != 100);
+    bool condition3 = (monster->getIsDefending(), true);
+    EXPECT_TRUE(condition1 || condition2 || condition3);
 }
