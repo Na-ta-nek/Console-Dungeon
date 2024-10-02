@@ -216,3 +216,21 @@ TEST_F(MonsterTests, MonsterUsingAbilityTest)
     bool condition3 = (monster->getIsDefending(), true);
     EXPECT_TRUE(condition1 || condition2 || condition3);
 }
+
+TEST(ItemTests, ItemInitializationTest)
+{
+    auto item = std::make_shared<Pill>();
+    EXPECT_EQ(item->getValue(), 15);
+    EXPECT_EQ(item->getName(), "Pill");
+}
+
+TEST(ActionTests, ActionInitializationTest)
+{
+    bool functionCalled = false;
+    std::function<void()> testFunction = [&]() { functionCalled = true; };
+
+    Action action(1, "Test Action", testFunction);
+    action.getFunction()();
+    
+    EXPECT_TRUE(functionCalled);
+}
