@@ -46,15 +46,19 @@ target_include_directories(${PROJECT_NAME}
                            PRIVATE
                            ${PROJECT_SOURCE_DIR}/Items)
     
-find_package(GTest REQUIRED)
-enable_testing()
+include(FetchContent)
+FetchContent_Declare(googletest
+                     URL https://github.com/google/googletest/archive/release-1.12.1.zip)
+FetchContent_MakeAvailable(googletest)
 
 add_executable(${PROJECT_NAME}-ut
                ${SOURCES}
                tests.cpp)
 
 target_link_libraries(${PROJECT_NAME}-ut
-                      GTest::GTest
-                      GTest::gmock_main)
+                      gtest
+                      gmock
+                      gmock_main)
 
-gtest_discover_tests(${PROJECT_NAME}-ut)
+enable_testing()
+add_test(NAME ${PROJECT_NAME}-ut COMMAND ${PROJECT_NAME}-ut)
